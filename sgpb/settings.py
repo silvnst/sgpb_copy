@@ -11,21 +11,29 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 't^(knylsu8cu72v^n6c6#m5u7uqr-7%+vo)zsn$fd5!*e$&y_1'
+# SECRET_KEY = 't^(knylsu8cu72v^n6c6#m5u7uqr-7%+vo)zsn$fd5!*e$&y_1'
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 't^(knylsu8cu72v^n6c6#m5u7uqr-7%+vo)zsn$fd5!*e$&y_1')
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
+DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
+# export DJANGO_DEBUG=False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'sgpbox.herokuapp.com',
+    '127.0.0.1',
+]
 
 
 # Application definition
@@ -122,8 +130,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = '/my_static/'
+STATIC_ROOT = BASE_DIR +  '/staticfiles'
 
+# Simplified static file serving.
+# https://warehouse.python.org/project/whitenoise/
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # ckeditor
 CKEDITOR_UPLOAD_PATH = "uploads/"
