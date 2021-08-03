@@ -1,0 +1,39 @@
+{% extends "praxismethoden/layout.html" %}
+{% load static %}
+{% block script %}
+    <script src="{% static 'praxismethoden/script.js' %}"></script>
+    <script src="{% static 'praxismethoden/finden.js' %}"></script>
+{% endblock %}
+{% block body %}
+<div class="row" id="finden">
+    <div class="col-12 d-flex justify-content-around">
+        <span>Kategorie auswählen:</span>
+        <div class="" id="categories"></div>
+    </div>
+    <div class="col-12"><hr></div>
+    <div class="col-12" id="cards">
+        <!-- Button trigger modal -->
+        <button class="btn btn-light" id="other">Hehe</button>
+    </div>
+    
+    
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-fullscreen-sm-down modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="">Titel</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Schliessen</button>
+            <button type="button" class="btn btn-primary">Zur Favoriten hinzufügen</button>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
