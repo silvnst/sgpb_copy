@@ -39,7 +39,6 @@ ALLOWED_HOSTS = [
 # Application definition
 
 INSTALLED_APPS = [
-    'tinymce',
     'ckeditor',
     'praxismethoden',
     'django.contrib.admin',
