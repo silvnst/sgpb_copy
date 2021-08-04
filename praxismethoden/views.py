@@ -24,7 +24,6 @@ def finden(request):
 def email_check(user):
     return user.email.endswith('unisg.ch')
 
-@login_required(login_url='login')
 def meine(request):
     cards = Method.objects.filter(likes=request.user)
     return render(request, "praxismethoden/methodenansicht.html", {
