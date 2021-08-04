@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 let mod = document.querySelector('#methodModal');
                 pillsCat = '';
                 content.category.forEach(catName =>{
-                    pillsCat += `<span class="badge rounded-pill bg-light shadow-sm text-dark mx-1" id="${catName.toLowerCase()}-modal">${catName}</span>`;
+                    pillsCat += `<span class="badge text-wrap rounded-pill bg-light shadow-sm text-dark mx-1" id="${catName.toLowerCase()}-modal">${catName}</span>`;
                 });
                 mod.innerHTML =
                     `<div class="modal-dialog modal-lg modal-fullscreen-sm-down modal-dialog-centered">
