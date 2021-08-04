@@ -1,1 +1,1 @@
-web: gunicorn praxismethoden.wsgi --log-file -
+web: gunicorn sgpb.wsgi --log-file -
