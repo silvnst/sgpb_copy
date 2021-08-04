@@ -1,6 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-from ckeditor.fields import RichTextField
+from ckeditor.fields import RichTextField, CKEditorWidget
 
 class User(AbstractUser):
     pass
@@ -25,8 +25,9 @@ class Method(models.Model):
     author = models.ForeignKey("User", null=True, on_delete=models.SET_NULL, related_name="author")
     likes = models.ManyToManyField("User", related_name="methods_liked", blank=True)
     titel = models.CharField(max_length=255)
-    desc = RichTextField(null=True, blank=True)
-    content = RichTextField(null=True, blank=True)
+    desc = RichTextField(null=True, blank=True, verbose_name="Text kurz", help_text="Der hier eingegebene Kurztext, wird in der Kachelansicht angezeigt und dient zur Information und dazu, den Besucher neugierig zu machen.")
+    content = RichTextField(null=True, blank=True, verbose_name="Text detail", help_text="Der Text hier ist detailierter als der Kurztext. Zum Beispiel hält dieser zusätzliche Informationen oder Beispiele.")
+    files = models.FileField(blank=True)
     timestamp = models.DateTimeField(auto_now_add=True)
     category = models.ManyToManyField("Category", related_name="categories_method", blank=True)
 

@@ -1,27 +1,33 @@
 import json
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.db import IntegrityError
 from django.shortcuts import render
-from django.http import HttpResponseRedirect, JsonResponse
+from django.http import HttpResponseRedirect, JsonResponse, HttpResponse
 from django.urls import reverse
 from .models import Category, User, Method
 
 # Create your views here.
 
 def index(request):
+    return render(request, "praxismethoden/index.html")
+
+def alle(request):
     cards = Method.objects.all()
-    return render(request, "praxismethoden/index.html", {
+    return render(request, "praxismethoden/methodenansicht.html", {
         "cards": cards
     })
 
 def finden(request):
     return render(request, "praxismethoden/finden.html")
 
-@login_required
+def email_check(user):
+    return user.email.endswith('unisg.ch')
+
+@login_required(login_url='login')
 def meine(request):
     cards = Method.objects.filter(likes=request.user)
-    return render(request, "praxismethoden/meine.html", {
+    return render(request, "praxismethoden/methodenansicht.html", {
         "cards": cards
     })
 
@@ -78,15 +84,24 @@ def register(request):
 
 def method_single(request, method_id):
 
-    # Query for requested email
+    # Query for requested method
     try:
         m = Method.objects.get(pk=method_id)
     except Method.DoesNotExist:
         return JsonResponse({"error": "Method not found."}, status=404)
 
-    # Return email contents
+    # Return method contents
     if request.method == "GET":
         return JsonResponse(m.serialize())
+
+    elif request.method == "POST":
+        data = json.loads(request.body)
+        if data.get("like") == True:
+            m.likes.remove(request.user)
+        else:
+            m.likes.add(request.user)
+        m.save()
+        return HttpResponse(status=204)
 
     # Email must be via GET or PUT
     else:

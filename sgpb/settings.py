@@ -10,7 +10,6 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
-from pathlib import Path
 import os
 import django_heroku
 
@@ -141,6 +140,22 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # ckeditor
 CKEDITOR_UPLOAD_PATH = "uploads/"
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'Basic',
+        'toolbar_Basic': [
+            ['Source', '-', 'Print', 'Templates', '-', 'Undo', 'Redo'],
+            '/',
+            ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat'],
+            ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'CreateDiv', '-',
+            'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock' ],
+            ['Link', 'Image', 'Iframe', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'PageBreak'],
+            '/',
+            ['Styles', 'Format', 'Font', 'FontSize', '-', 'TextColor', 'BGColor', 'ShowBlocks']
+        ]
+    },
+}
 
 # Heroku: Update database configuration from $DATABASE_URL.
 import dj_database_url
