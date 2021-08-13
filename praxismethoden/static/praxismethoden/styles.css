@@ -12,14 +12,23 @@
     background-size: cover;
     background-position: center;
 }
+/* Methodenansicht */
+.like-display {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+}
 .line-clamp-4 {
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;  
     overflow: hidden;
 }
+.method-card{
+    cursor: pointer;
+}
 .method-card:hover {
-    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.25)!important;
 }
 .transition {
     transition: all 0.5s;

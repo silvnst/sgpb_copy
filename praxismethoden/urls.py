@@ -14,4 +14,5 @@ urlpatterns = [
     path("api/methoden/<int:method_id>", views.method_single, name="method_single"),
     path("api/methoden/<str:category>", views.category, name="category"),
     path("api/all_categories", views.all_categories, name="all_categories"),
+    path("api/all_methods", views.all_methods, name="all_methods"),
 ]

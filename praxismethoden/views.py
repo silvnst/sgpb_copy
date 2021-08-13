@@ -5,21 +5,31 @@ from django.db import IntegrityError
 from django.shortcuts import render
 from django.http import HttpResponseRedirect, JsonResponse, HttpResponse
 from django.urls import reverse
-from .models import Category, User, Method
+from .models import Category, Semester, User, Method
 
 # Create your views here.
 
 def index(request):
-    return render(request, "praxismethoden/index.html")
+    semesterprogram = Semester.objects.first()
+    return render(request, "praxismethoden/index.html", {
+        "programm": semesterprogram,
+    })
 
 def alle(request):
     cards = Method.objects.all()
+    categories = Category.objects.all()
     return render(request, "praxismethoden/methodenansicht.html", {
-        "cards": cards
+        "cards": cards,
+        "categories": categories,
+        "titel": "Alle Methoden",
+        "untertitel": "Hier findest du alle Methoden der Praxisprojektbox."
     })
 
 def finden(request):
-    return render(request, "praxismethoden/finden.html")
+    return render(request, "praxismethoden/finden.html", {
+        "titel": "Alle Methoden",
+        "untertitel": "Hier findest du alle Methoden der Praxisprojektbox."
+    })
 
 def email_check(user):
     return user.email.endswith('unisg.ch')
@@ -28,7 +38,9 @@ def email_check(user):
 def meine(request):
     cards = Method.objects.filter(likes=request.user)
     return render(request, "praxismethoden/methodenansicht.html", {
-        "cards": cards
+        "cards": cards,
+        "titel": "Favoriten",
+        "untertitel": "Hier findest du deine liebsten Methoden."
     })
 
 def login_view(request):
@@ -82,6 +94,8 @@ def register(request):
     else:
         return render(request, "praxismethoden/register.html")
 
+# api
+
 def method_single(request, method_id):
 
     # Query for requested method
@@ -108,6 +122,11 @@ def method_single(request, method_id):
         return JsonResponse({
             "error": "GET or PUT request required."
         }, status=400)
+
+def all_methods(request):
+    
+    all_m = Method.objects.all()
+    return JsonResponse([m.serialize() for m in all_m], safe=False)
 
 def all_categories(request):
     

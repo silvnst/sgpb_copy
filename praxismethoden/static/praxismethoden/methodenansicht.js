@@ -22,6 +22,7 @@ function getCookie(name) {
 // save csrf token in constant
 const csrftoken = getCookie('csrftoken');
 
+// open modal effekt
 document.addEventListener('DOMContentLoaded', () => {
     
     const user_id = JSON.parse(document.getElementById('user_id').textContent);
@@ -36,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.log(content);
                 let mod = document.querySelector('#methodModal');
                 pillsCat = '';
-                content.category.forEach(catName =>{
+                content.category.forEach(catName => {
                     pillsCat += `<span class="badge text-wrap rounded-pill bg-light shadow-sm text-dark mx-1" id="${catName.toLowerCase()}-modal">${catName}</span>`;
                 });
                 mod.innerHTML =
@@ -44,12 +45,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="">${ content.titel }</h5>
+                            <p>Here a Dokument: <a href="${ content.file.url }">Link</a></p>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="modal-body">${ content.content }</div>
+                        <div class="modal-body">${ content.content }
+                        </div>
                         <div class="modal-body">
                             <div class="d-flex justify-content-start">${ pillsCat }
-                            <span class="badge rounded-pill bg-light shadow-sm text-dark mx-1" href="${content.files}">aa</span>
                             </div>
                         </div>
 
@@ -90,4 +92,3 @@ document.addEventListener('DOMContentLoaded', () => {
         })
     })
 })
-

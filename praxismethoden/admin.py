@@ -4,3 +4,5 @@ from .models import *
 admin.site.register(User)
 admin.site.register(Method)
 admin.site.register(Category)
+admin.site.register(Semester)
+admin.site.register(Aufgaben)

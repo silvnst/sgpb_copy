@@ -29,22 +29,16 @@
                             Home
                         </a>
                         <a class="nav-link d-none text-center d-sm-block col-sm-12" href="{% url 'alle' %}">
-                            Alle Methoden
+                            Methoden
                         </a>
                         <a class="nav-link d-block d-sm-none col-sm-12" href="{% url 'alle' %}">
-                            Alle
-                          </a>
-                        <a class="nav-link d-none text-center d-sm-block col-sm-12" href="{% url 'finden' %}">
-                            Methoden finden
-                        </a>
-                        <a class="nav-link d-block d-sm-none col-sm-12" href="{% url 'finden' %}">
-                            Finden
+                            Methoden
                         </a>
                         <a class="nav-link d-none text-center d-sm-block col-sm-12" href="{% url 'meine' %}">
-                            Meine Methoden
+                            Meine Favoriten
                         </a>
                         <a class="nav-link d-block d-sm-none col-sm-12" href="{% url 'meine' %}">
-                            Meine
+                            Favoriten
                         </a>
                     </nav>
                     <nav class="nav nav-pills nav-fill-sgpb">
@@ -64,19 +58,9 @@
                     </nav>
                   </div> 
                 </div>
-                <!-- Header -->
-                <div class="col">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-12 text-center">
-                                <div class="col-12">
-                                    <img class="img-fluid" style="height: 150px;" src="{% static 'img/HSG-Maskottchen.png' %}" alt="">
-                                </div>
-                                <h1 class="pt-1">Die St. Galler Praxisprojektbox</h1>
-                                <p>Herzlich Willkommen</p>
-                                <hr>
-                            </div>
-                        </div>
+                <!-- Main Content -->
+                <div class="col bg-light" style="min-height: 100%;">
+                    <div class="container-lg p-0 p-md-3">
                         {% block body %}
                         {% endblock %}
                     </div>
