@@ -45,10 +45,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="">${ content.titel }</h5>
-                            <p>Here a Dokument: <a href="${ content.file.url }">Link</a></p>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="modal-body">${ content.content }
+                        <div class="modal-body">
+                            ${ content.content }
+                            <p>Here a Dokument: <a href="${ content.file.path }">Link</a></p>
                         </div>
                         <div class="modal-body">
                             <div class="d-flex justify-content-start">${ pillsCat }

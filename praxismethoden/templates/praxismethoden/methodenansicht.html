@@ -44,7 +44,7 @@
                 </div>
                 <div>
                     {% for cat in card.category.all %}
-                        <span data-category=" {{ cat.id }}" id="category-badge" class="badge rounded-pill badge-info" style="background: #2b8b39b3">
+                        <span data-category=" {{ cat.id }}" id="category-badge" class="badge rounded-pill badge-info text-wrap" style="background: #2b8b39b3">
                     {{ cat.name }}
                         </span>
                     {% endfor %}

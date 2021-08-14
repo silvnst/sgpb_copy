@@ -29,8 +29,21 @@ class Method(models.Model):
     file = models.FileField(blank=True, null=True)
     timestamp = models.DateTimeField(auto_now_add=True)
     category = models.ManyToManyField("Category", related_name="categories_method", blank=True)
+    
+    def test(self):
+
+        aaa = ''
+        if self.file is not None:
+            aaa = "hello"
+        else:
+            aaa = "by"
+        return {
+            aaa
+        }
+
 
     def serialize(self):
+        
         return {
             "id": self.id,
             "likes": [user.id for user in self.likes.all()],
@@ -39,13 +52,13 @@ class Method(models.Model):
             "file": {
                 "name": self.file.name,
                 "url": self.file.url
-            },
+            } if self.file else { },
             "content": self.content,
             "timestamp": self.timestamp.strftime("%b %d %Y, %I:%M %p"),
             "category": {
                 "id": [cat.id for cat in self.category.all()],
                 "name": [cat.name for cat in self.category.all()],
-            }
+            } if self.category else { }
         }
 
     def __str__(self):
