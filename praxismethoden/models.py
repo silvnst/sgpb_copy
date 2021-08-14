@@ -38,12 +38,13 @@ class Method(models.Model):
             "desc": self.desc,
             "file": {
                 "name": self.file.name,
-                #"url": self.file.url
+                "url": self.file.url
             },
             "content": self.content,
             "timestamp": self.timestamp.strftime("%b %d %Y, %I:%M %p"),
             "category": {
                 "id": [cat.id for cat in self.category.all()],
+                "name": [cat.name for cat in self.category.all()],
             }
         }
 

@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.log(content);
                 let mod = document.querySelector('#methodModal');
                 pillsCat = '';
-                content.category.forEach(catName => {
+                content.category.name.forEach(catName => {
                     pillsCat += `<span class="badge text-wrap rounded-pill bg-light shadow-sm text-dark mx-1" id="${catName.toLowerCase()}-modal">${catName}</span>`;
                 });
                 mod.innerHTML =
