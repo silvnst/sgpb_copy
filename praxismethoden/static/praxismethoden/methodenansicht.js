@@ -30,11 +30,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // Detail ansicht
     document.querySelectorAll('.method-modal').forEach( c =>{
         c.addEventListener('click', () => {
-            console.log(c.id);
             fetch(`/api/methoden/${c.id}`)
             .then(response => response.json())
             .then(content => {
-                console.log(content);
                 let mod = document.querySelector('#methodModal');
                 pillsCat = '';
                 content.category.name.forEach(catName => {
@@ -68,7 +66,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     request = new Request(`/api/methoden/${c.id}`, {
                         headers: {'X-CSRFToken': csrftoken}
                     })
-                    console.log(likeInd);
                     fetch(request, {
                         method: 'POST',
                         mode: 'same-origin',

@@ -42,16 +42,16 @@
                     {{ card.desc }}
                     {% endautoescape %}
                 </div>
+                <a type="button" class="btn btn-sm my-2 btn-outline-primary text-decoration-none" data-toggle="modal" data-target="#exampleModal">
+                    Erfahre mehr
+                </a>
                 <div>
                     {% for cat in card.category.all %}
-                        <span data-category=" {{ cat.id }}" id="category-badge" class="badge rounded-pill badge-info text-wrap" style="background: #2b8b39b3">
+                        <span data-category=" {{ cat.id }}" id="category-badge" class="badge rounded-pill badge-info text-wrap" style="background: #2b8b395e">
                     {{ cat.name }}
                         </span>
                     {% endfor %}
                 </div>
-                <a type="button" class="btn btn-sm mt-2 btn-outline-primary text-decoration-none" data-toggle="modal" data-target="#exampleModal">
-                    Erfahre mehr
-                </a>
             </div>
         </div>
     </div>
