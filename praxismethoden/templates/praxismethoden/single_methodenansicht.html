@@ -1,0 +1,45 @@
+{% extends "praxismethoden/layout.html" %}
+{% load static %}
+
+{% block script %}
+    <script src="{% static 'praxismethoden/script.js' %}"></script>
+    <script src="{% static 'praxismethoden/categoryfilter.js' %}"></script>
+    <script src="{% static 'praxismethoden/methodenansicht.js' %}"></script>
+
+{% endblock %}
+
+{% block body %}
+<div class="row" id="alle">
+    <div class="col-12 mt-3">
+        <h1 class="display-4 fst-italic">{{ method.titel }} </h1>        
+    </div>
+    <div class="col-12">
+        <span class="material-icons like-display">
+            {% if user in method.likes.all %} favorite
+            {% else %} favorite_border {% endif %}
+        </span> 
+    </div>
+    <div class="col-12">
+        {% autoescape off %}
+        {{ method.desc }}
+        {% endautoescape %}
+    </div>
+    <div class="col-12">
+        {% autoescape off %}
+        {{ method.content }}
+        {% endautoescape %}
+    </div>
+    <div class="col-12">
+        <h5>File: <a target="_blank" href=" {{ method.file_raw.url }} ">Click here</a></h5>
+    </div>
+    <div class="col-12">
+        {% for cat in method.category.all %}
+            <span data-category=" {{ cat.id }}" id="category-badge" class="badge rounded-pill badge-info text-wrap" style="background: #2b8b395e">
+        {{ cat.name }}
+            </span>
+        {% endfor %}
+    </div>
+</div>
+
+
+{% endblock %}

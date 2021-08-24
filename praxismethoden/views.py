@@ -6,6 +6,7 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect, JsonResponse, HttpResponse
 from django.urls import reverse
 from .models import Category, Semester, User, Method
+from .forms import MethodForm
 
 # Create your views here.
 
@@ -31,6 +32,42 @@ def finden(request):
         "untertitel": "Hier findest du alle Methoden der Praxisprojektbox."
     })
 
+def method_single(request, method_id):
+    m = Method.objects.get(pk=method_id)
+    return render(request, "praxismethoden/single_methodenansicht.html", {
+        "method": m
+    })
+
+
+def method_single_edit(request, method_id):
+
+    m = Method.objects.get(pk=method_id)
+
+
+    if request.method == "POST":
+
+        f = MethodForm(request.POST, instance=m)
+
+        if f.is_valid():
+
+            f.save()
+
+            return render(request, "praxismethoden/single_edit_methodenansicht.html", {
+                "id": method_id,
+                "form": f
+            })
+
+    else:
+
+        f = MethodForm(instance=m)
+
+        return render(request, "praxismethoden/single_edit_methodenansicht.html", {
+            "id": method_id,
+            "form": f
+        })
+
+
+
 def email_check(user):
     return user.email.endswith('unisg.ch')
 
@@ -42,6 +79,8 @@ def meine(request):
         "titel": "Favoriten",
         "untertitel": "Hier findest du deine liebsten Methoden."
     })
+
+# account
 
 def login_view(request):
     if request.method == "POST":
@@ -96,7 +135,7 @@ def register(request):
 
 # api
 
-def method_single(request, method_id):
+def api_method_single(request, method_id):
 
     # Query for requested method
     try:

@@ -10,6 +10,7 @@
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link rel="stylesheet" href="{% static 'praxismethoden/styles.css' %}">
         <script src="{% static 'praxismethoden/script.js' %}"></script>
+        {% load cloudinary %}
         {% block script %}
         {% endblock %}
         {{ request.user.id|json_script:"user_id" }}

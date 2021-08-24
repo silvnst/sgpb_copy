@@ -10,35 +10,33 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
-import os
-import django_heroku
+from pathlib import Path
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+BASE_DIR = Path(__file__).resolve().parent.parent
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = 't^(knylsu8cu72v^n6c6#m5u7uqr-7%+vo)zsn$fd5!*e$&y_1'
-SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 't^(knylsu8cu72v^n6c6#m5u7uqr-7%+vo)zsn$fd5!*e$&y_1')
-
+SECRET_KEY = 't^(knylsu8cu72v^n6c6#m5u7uqr-7%+vo)zsn$fd5!*e$&y_1'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = True
-DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
-# export DJANGO_DEBUG=False
+DEBUG = True
 
-ALLOWED_HOSTS = [
-    'sgpbox.herokuapp.com',
-    '127.0.0.1',
-]
+ALLOWED_HOSTS = []
 
 
 # Application definition
 
 INSTALLED_APPS = [
     'ckeditor',
+    'cloudinary',
+    'cloudinary_storage',
     'praxismethoden',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -50,7 +48,6 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -86,7 +83,7 @@ WSGI_APPLICATION = 'sgpb.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR , 'db.sqlite3'),
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
@@ -128,18 +125,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-# The absolute path to the directory where collectstatic will collect static files for deployment.
-STATIC_ROOT = os.path.join(BASE_DIR , 'staticfiles')
-
-# The URL to use when referring to static files (where they will be served from)
 STATIC_URL = '/static/'
+STATIC_ROOT = '/my_static/'
 
-# Simplified static file serving.
-# https://warehouse.python.org/project/whitenoise/
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # ckeditor
-CKEDITOR_UPLOAD_PATH = "uploads/"
+CKEDITOR_UPLOAD_PATH = '/uploads/'
 
 CKEDITOR_CONFIGS = {
     'default': {
@@ -157,10 +148,19 @@ CKEDITOR_CONFIGS = {
     },
 }
 
-# Heroku: Update database configuration from $DATABASE_URL.
-import dj_database_url
-db_from_env = dj_database_url.config(conn_max_age=500)
-DATABASES['default'].update(db_from_env)
+# adding config
+cloudinary.config( 
+  cloud_name = "dcfyzufal", 
+  api_key = "839892552518727", 
+  api_secret = "DXLqNlDuHwDZWEnqPg9nliKLHk4" 
+)
 
-# Activate Django-Heroku.
-django_heroku.settings(locals())
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'dcfyzufal',
+    'API_KEY': '839892552518727',
+    'API_SECRET': 'DXLqNlDuHwDZWEnqPg9nliKLHk4'
+}
+
+# cloudinary storage
+MEDIA_URL = '/media/' 
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'

@@ -1,3 +1,4 @@
+from cloudinary_storage.storage import RawMediaCloudinaryStorage
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from ckeditor.fields import RichTextField
@@ -27,19 +28,9 @@ class Method(models.Model):
     desc = RichTextField(null=True, blank=True, verbose_name="Text kurz", help_text="Der hier eingegebene Kurztext, wird in der Kachelansicht angezeigt und dient zur Information und dazu, den Besucher neugierig zu machen.")
     content = RichTextField(null=True, blank=True, verbose_name="Text detail", help_text="Der Text hier ist detailierter als der Kurztext. Zum Beispiel hält dieser zusätzliche Informationen oder Beispiele.")
     file = models.FileField(blank=True, null=True)
+    file_raw = models.FileField(upload_to='raw/', blank=True, storage=RawMediaCloudinaryStorage())
     timestamp = models.DateTimeField(auto_now_add=True)
     category = models.ManyToManyField("Category", related_name="categories_method", blank=True)
-    
-    def test(self):
-
-        aaa = ''
-        if self.file is not None:
-            aaa = "hello"
-        else:
-            aaa = "by"
-        return {
-            aaa
-        }
 
 
     def serialize(self):
@@ -62,7 +53,7 @@ class Method(models.Model):
         }
 
     def __str__(self):
-        return f'{self.titel}, zuletzt geändert: {self.timestamp}'
+        return f'{self.id}: {self.titel}, zuletzt geändert: {self.timestamp}'    
 
 PRIO_CHOICES = (
     (1,'Hoch'),

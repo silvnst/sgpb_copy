@@ -1,0 +1,25 @@
+{% extends "praxismethoden/layout.html" %}
+{% load static %}
+
+{% block script %}
+    <script src="{% static 'praxismethoden/script.js' %}"></script>
+    <script src="{% static 'praxismethoden/categoryfilter.js' %}"></script>
+    <script src="{% static 'praxismethoden/methodenansicht.js' %}"></script>
+
+{% endblock %}
+
+{% block body %}
+<div class="row" id="alle">
+    <div class="col-12 mt-3">
+        <h1 class="display-4 fst-italic">{{ method.titel }} </h1>        
+    </div>
+    <form action="{% url 'method_single_edit' id %}" method="post">
+        {% csrf_token %}
+        {{ form.media }}
+        {{ form.as_p }}
+        <input type="submit"/>
+    </form>
+</div>
+
+
+{% endblock %}
