@@ -21,3 +21,4 @@ psycopg2-binary==2.8.6
 django_heroku==0.3.1
 django-ckeditor==5.6.1
 cloudinary==1.26.0
+django-cloudinary-storage==0.3.0
