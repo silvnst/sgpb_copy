@@ -40,8 +40,7 @@ ALLOWED_HOSTS = [
 
 INSTALLED_APPS = [
     'ckeditor',
-    'cloudinary',
-    'cloudinary_storage',
+    
     'praxismethoden',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -49,6 +48,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'cloudinary',
+    'cloudinary_storage',
 ]
 
 MIDDLEWARE = [
