@@ -17,48 +17,19 @@
                     <img class="img-fluid" style="height: 150px;" src="{% static 'img/HSG-Maskottchen.png' %}" alt="">
                 </div>
                 <h1 class="pt-1 display-2">St. Galler Praxisprojektbox</h1>
-                <p class="lead">Herzlich Willkommen</p>
-                <hr>
+                <hr class="m-4">
+                
             </div>
             <div class="col-12">
-                <p>Hier einige Informationen zu SGPB:</p>
-            </div>
-            <div class="col-12">
-                <h4>Woche 1</h4>
-                <p class="fw-bold">Aufgaben:</p>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                    <label class="form-check-label" for="flexCheckDefault">
-                        Rollen innerhalb des Teams definieren
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                    <label class="form-check-label" for="flexCheckDefault">
-                        Eine "Spokesperson" definieren für Kommunikation mit dem Auftraggeber und Coach
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                    <label class="form-check-label" for="flexCheckDefault">
-                        Termine anhand der Meilensteintreffen mit Auftraggeber & Coaches vereinbaren
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                    <label class="form-check-label" for="flexCheckDefault">
-                        Ordnerstruktur auf OneDrive anlegen (z.B. nach der Struktur der Meilensteintreffen)
-                    </label>
-                </div>
-                <p class="fw-bold">Tipps:</p>
-                <p>
-                    Trello ist ein gutes Tool für das Projektmanagement. Probiert es doch mal aus.
+                <p class="lead">Die St. Galler Praxisprojekt Box ist eine Methodik, die Studierende dabei unterstützt, im Team reale Probleme von Unternehmen zu lösen.</p>
+
+                <h3>Anleitung</h3>
+                <p>Auf dieser Seite findest du alle Methoden der St. Galler Praxisprojektbox. </p>
+                <p>Wenn du <a href="{% url 'login' %}">eingeloggt</a> bist, hast du zudem die Möglichkeit, diejenigen Methoden, welche dir am wichtigsten erscheinen als Favoriten zu markieren.</p>
+                <p>Dazu musst du nur auf die Methode klicken und dann auf den "Zu Favoriten hinzufügen" Button klicken.
+                    Sobald do eine Methode als Favorit hinzugefügt hast, erkennst du deine Favoriten in der <a href="{% url 'alle' %}">Methodenübersicht</a>,
+                    an dem ausgefüllten Herz oben rechts.
                 </p>
-                <p class="fw-bold">Unterlagen:</p>
-                <ul>
-                    <li><a href="/">Selbststudium Projektmanagement</a></li>
-                    <li><a href="/">Projektmanagement: Zeiterfassung XLS</a></li>
-                </ul>
             </div>
         </div>
         

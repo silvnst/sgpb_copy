@@ -28,7 +28,7 @@ class Method(models.Model):
     desc = RichTextField(null=True, blank=True, verbose_name="Text kurz", help_text="Der hier eingegebene Kurztext, wird in der Kachelansicht angezeigt und dient zur Information und dazu, den Besucher neugierig zu machen.")
     content = RichTextField(null=True, blank=True, verbose_name="Text detail", help_text="Der Text hier ist detailierter als der Kurztext. Zum Beispiel hält dieser zusätzliche Informationen oder Beispiele.")
     file = models.FileField(blank=True, null=True)
-    file_raw = models.FileField(upload_to='raw/', blank=True, storage=RawMediaCloudinaryStorage())
+    # file_raw = models.FileField(upload_to='raw/', blank=True, storage=RawMediaCloudinaryStorage())
     timestamp = models.DateTimeField(auto_now_add=True)
     category = models.ManyToManyField("Category", related_name="categories_method", blank=True)
 
