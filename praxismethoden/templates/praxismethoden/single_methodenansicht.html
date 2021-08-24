@@ -29,9 +29,11 @@
         {{ method.content }}
         {% endautoescape %}
     </div>
+    {% if method.file_raw.url %}
     <div class="col-12">
         <h5>File: <a target="_blank" href=" {{ method.file_raw.url }} ">Click here</a></h5>
     </div>
+    {% endif %}
     <div class="col-12">
         {% for cat in method.category.all %}
             <span data-category=" {{ cat.id }}" id="category-badge" class="badge rounded-pill badge-info text-wrap" style="background: #2b8b395e">
