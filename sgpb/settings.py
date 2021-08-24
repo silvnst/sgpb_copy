@@ -29,9 +29,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 't^(knylsu8cu72v^n6c6#m5u7uqr-7%+vo)zsn$fd5!*e$&y_1')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = True
 DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
-# export DJANGO_DEBUG=False
 
 ALLOWED_HOSTS = [
     'sgpbox.herokuapp.com',
@@ -183,6 +181,7 @@ DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 CSRF_COOKIE_SECURE = True
 SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
 
 # Activate Django-Heroku.
 django_heroku.settings(locals())
