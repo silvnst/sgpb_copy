@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 let mod = document.querySelector('#methodModal');
                 let docs = '';
                 if (content.file_raw.url) {
-                    docs += `<br></br><h5>Hier ein Dokument zu diesem Thema: </h5><p><a <a target="_blank" href="${ content.file_raw.url }">Link</a></p>`;
+                    docs += `<br></br><h5>Hier ein Dokument zu diesem Thema: </h5><p><a <a target="_blank" class="text-decoration-none" href="${ content.file_raw.url }">Link zum Dokument</a></p>`;
                 }
                 pillsCat = '';
                 content.category.name.forEach(catName => {

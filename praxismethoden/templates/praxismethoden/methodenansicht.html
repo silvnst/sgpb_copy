@@ -50,7 +50,7 @@
                 </a>
                 <div>
                     {% for cat in card.category.all %}
-                        <span data-category=" {{ cat.id }}" id="category-badge" class="badge rounded-pill badge-info text-wrap" style="background: #2b8b395e">
+                        <span data-category=" {{ cat.id }}" id="category-badge" class="badge rounded-pill badge-info text-wrap mt-1" style="background: #2b8b395e">
                     {{ cat.name }}
                         </span>
                     {% endfor %}
