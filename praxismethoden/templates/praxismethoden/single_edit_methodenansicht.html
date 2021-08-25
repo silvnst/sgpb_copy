@@ -13,11 +13,26 @@
     <div class="col-12 mt-3">
         <h1 class="display-4 fst-italic">{{ method.titel }} </h1>        
     </div>
+    
+    
     <form action="{% url 'method_single_edit' id %}" method="post">
         {% csrf_token %}
         {{ form.media }}
-        {{ form.as_p }}
-        <input type="submit"/>
+        {% for field in form %}
+            <div class="mb-3">
+                {{ field.errors }}
+                <div class="col-12 form-label">
+                    {{ field.label_tag }}
+                </div>
+                <div class="col-12">
+                    {{ field }}
+                </div>
+                {% if field.help_text %}
+                    <div class="form-text">{{ field.help_text|safe }}</div>
+                {% endif %}
+            </div>
+        {% endfor %}
+        <button type="submit" class="btn btn-primary">Änderungen speichern</button>
     </form>
 </div>
 

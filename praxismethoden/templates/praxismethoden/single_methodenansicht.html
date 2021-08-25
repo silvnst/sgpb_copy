@@ -10,8 +10,8 @@
 
 {% block body %}
 <div class="row" id="alle">
-    <div class="col-12 mt-3">
-        <h1 class="display-4 fst-italic">{{ method.titel }} </h1>        
+    <div class="col-12">
+        <h1 class="p-4 display-4 fst-italic">{{ method.titel }} </h1>        
     </div>
     <div class="col-12">
         <span class="material-icons like-display">
@@ -21,17 +21,13 @@
     </div>
     <div class="col-12">
         {% autoescape off %}
-        {{ method.desc }}
-        {% endautoescape %}
-    </div>
-    <div class="col-12">
-        {% autoescape off %}
         {{ method.content }}
         {% endautoescape %}
     </div>
     {% if method.file_raw %}
-    <div class="col-12">
-        <h5>File: <a target="_blank" href=" {{ method.file_raw.url }} ">Click here</a></h5>
+    <div class="col-12 py-3">
+        <h5>Hier noch ein Dokument mit weiteren Infos: </h5>
+        <a target="_blank" class="text-decoration-none" href=" {{ method.file_raw.url }} ">Click here</a>
     </div>
     {% endif %}
     <div class="col-12">
@@ -40,6 +36,9 @@
         {{ cat.name }}
             </span>
         {% endfor %}
+    </div>
+    <div class="col-12 py-5">
+        <a class="btn btn btn-outline-primary" href="{% url 'method_single_edit' method.id %}" role="button">Bearbeiten</a>
     </div>
 </div>
 

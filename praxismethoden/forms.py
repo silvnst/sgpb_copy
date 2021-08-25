@@ -10,3 +10,4 @@ class MethodForm(forms.ModelForm):
     class Meta:
         model = Method
         fields = '__all__'
+        exclude = ['likes']

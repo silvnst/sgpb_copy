@@ -31,6 +31,9 @@
     {% for card in cards %}
     <div class="col-12 col-md-6 col-lg-4 method-modal" id="{{ card.id }}">
         <div class="card position-relative border-0 transition method-card shadow my-3">
+            {% comment "Optional Single Page Mod" %}
+                <a class="stretched-link" href=" {% url 'method_single' card.id %}"></a>
+            {% endcomment %}
             <span class="material-icons like-display">
                 {% if user in card.likes.all %} favorite
                 {% else %} favorite_border {% endif %}

@@ -44,6 +44,10 @@ class Method(models.Model):
                 "name": self.file.name,
                 "url": self.file.url
             } if self.file else { },
+            "file_raw": {
+                "name": self.file_raw.name,
+                "url": self.file_raw.url
+            } if self.file else { },
             "content": self.content,
             "timestamp": self.timestamp.strftime("%b %d %Y, %I:%M %p"),
             "category": {

@@ -33,7 +33,12 @@ document.addEventListener('DOMContentLoaded', () => {
             fetch(`/api/methoden/${c.id}`)
             .then(response => response.json())
             .then(content => {
+                console.log(content);
                 let mod = document.querySelector('#methodModal');
+                let docs = '';
+                if (content.file_raw.url) {
+                    docs += `<br></br><h5>Hier ein Dokument zu diesem Thema: </h5><p><a <a target="_blank" href="${ content.file_raw.url }">Link</a></p>`;
+                }
                 pillsCat = '';
                 content.category.name.forEach(catName => {
                     pillsCat += `<span class="badge text-wrap rounded-pill bg-light shadow-sm text-dark mx-1" id="${catName.toLowerCase()}-modal">${catName}</span>`;
@@ -47,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
                         <div class="modal-body">
                             ${ content.content }
-                            <p>Here a Dokument: <a href="${ content.file.path }">Link</a></p>
+                            ${ docs }
                         </div>
                         <div class="modal-body">
                             <div class="d-flex justify-content-start">${ pillsCat }
