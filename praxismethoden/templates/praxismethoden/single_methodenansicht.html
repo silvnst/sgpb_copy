@@ -19,11 +19,22 @@
             {% else %} favorite_border {% endif %}
         </span> 
     </div>
+    {% if method.desc %}
     <div class="col-12">
+        <h4>Beschreibung</h4>
         {% autoescape off %}
-        {{ method.content }}
+        {{ method.desc }}
         {% endautoescape %}
     </div>
+    {% endif %}
+    {% if method.tipp %}
+    <div class="col-12">
+        <h4>Tipp:</h4>
+        {% autoescape off %}
+        {{ method.tipp }}
+        {% endautoescape %}
+    </div>
+    {% endif %}
     {% if files %}
     <div class="col-12 py-3">
         <h5>Weitere Unterlagen zu diesem Thema: </h5>

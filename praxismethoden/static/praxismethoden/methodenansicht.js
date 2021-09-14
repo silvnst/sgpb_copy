@@ -37,14 +37,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 let docs = '';
                 if (content.files.name) {
                     let fileArray = content.files.name.map((k, i) => {return[k, content.files.url[i]]});
-                    docs += '<br></br><h5>Weitere Unterlagen zu diesem Thema: </h5>';
+                    docs += '<br><h5>Weitere Unterlagen zu diesem Thema: </h5>';
                     fileArray.forEach(file => {
                         docs += `<a <a target="_blank" class="text-decoration-none" href="${ file[1] }">${ file[0] }</a><br>`;
                     });
                 }
                 let tipp = '';
                 if (content.tipp) {
-                    tipp += '<h5><img src="static/img/lightbulb.png" alt="enlightened" title="enlightened" style="height: 23px; width: 23px;">Tipp:</h5>' + content.tipp;
+                    tipp += '<br><h5><img src="static/img/lightbulb.png" alt="enlightened" title="enlightened" style="height: 23px; width: 23px;">Tipp:</h5>' + content.tipp;
                 }
                 pillsCat = '';
                 content.category.name.forEach(catName => {
