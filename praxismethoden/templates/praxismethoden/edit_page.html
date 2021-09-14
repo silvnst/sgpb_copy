@@ -1,0 +1,24 @@
+{% extends "praxismethoden/layout.html" %}
+{% load static %}
+
+{% block script %}
+
+{% endblock %}
+
+{% block body %}
+<div class="row" id="alle">
+    <div class="col-12">
+        <h1 class="p-4 display-4 fst-italic">Alle Methoden - Bearbeiten</h1>        
+    </div>
+    <div class="col-12">
+        <h3>Alle Methoden</h3>
+        <ul>
+            {% for m in all_methods %}
+                <li>{{ m.titel }} - <a href="{% url 'method_single_edit' m.id %}">Bearbeiten</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+
+{% endblock %}

@@ -34,6 +34,30 @@
         {% endfor %}
         <button type="submit" class="btn btn-primary">Änderungen speichern</button>
     </form>
+    <div class="col-12">
+        <h2>Dateien</h2>
+    </div>
+    <form class="d-flex flex-wrap" action="{% url 'method_single_edit_file' id %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% for form in file_form %}
+        {{ file_form.management_form }}
+            {% for field in form %}
+                <div class="d-flex w-100">
+                    {{ field.errors }}
+                    <div class="col form-label">
+                        {{ field.label_tag }}
+                    </div>
+                    <div class="col">
+                        {{ field }}
+                    </div>
+                    {% if field.help_text %}
+                        <div class="form-text">{{ field.help_text|safe }}</div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        {% endfor %}
+        <button type="submit" class="btn btn-primary">Änderungen speichern</button>
+    </form>
 </div>
 
 

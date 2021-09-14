@@ -33,11 +33,14 @@ document.addEventListener('DOMContentLoaded', () => {
             fetch(`/api/methoden/${c.id}`)
             .then(response => response.json())
             .then(content => {
-                console.log(content);
                 let mod = document.querySelector('#methodModal');
                 let docs = '';
-                if (content.file_raw.url) {
-                    docs += `<br></br><h5>Hier ein Dokument zu diesem Thema: </h5><p><a <a target="_blank" class="text-decoration-none" href="${ content.file_raw.url }">Link zum Dokument</a></p>`;
+                if (content.files.name) {
+                    let fileArray = content.files.name.map((k, i) => {return[k, content.files.url[i]]});
+                    docs += '<br></br><h5>Weitere Unterlagen zu diesem Thema: </h5>';
+                    fileArray.forEach(file => {
+                        docs += `<a <a target="_blank" class="text-decoration-none" href="${ file[1] }">${ file[0] }</a><br>`;
+                    });
                 }
                 pillsCat = '';
                 content.category.name.forEach(catName => {

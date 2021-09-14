@@ -24,10 +24,12 @@
         {{ method.content }}
         {% endautoescape %}
     </div>
-    {% if method.file_raw %}
+    {% if files %}
     <div class="col-12 py-3">
-        <h5>Hier noch ein Dokument mit weiteren Infos: </h5>
-        <a target="_blank" class="text-decoration-none" href=" {{ method.file_raw.url }} ">Click here</a>
+        <h5>Weitere Unterlagen zu diesem Thema: </h5>
+        {% for f in files %}
+            <a target="_blank" class="text-decoration-none" href=" {{ f.file.url }} ">{{ f.file_name }}</a><br>
+        {% endfor %}
     </div>
     {% endif %}
     <div class="col-12">

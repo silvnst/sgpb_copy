@@ -1,13 +1,17 @@
 from django.contrib.auth import models
 from django.forms import fields
-from .models import Method
+from .models import Method, File
 from django import forms
-from django.forms import Textarea
 
 
 class MethodForm(forms.ModelForm):
-
     class Meta:
         model = Method
         fields = '__all__'
-        exclude = ['likes', 'file']
+        exclude = ['likes']
+        # widgets = {             'file_raw': forms.FileInput(attrs={'multiple': True}),         }
+
+class FileForm(forms.ModelForm):
+    class Meta:
+        model = File
+        fields = '__all__'

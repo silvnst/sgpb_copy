@@ -1,11 +1,15 @@
 import json
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required, user_passes_test
+from django.core.checks.messages import Error
 from django.db import IntegrityError
+from django.forms import fields, formset_factory
+from django.forms.formsets import formset_factory
+from django.forms.models import modelformset_factory
 from django.shortcuts import render
 from django.http import HttpResponseRedirect, JsonResponse, HttpResponse
 from django.urls import reverse
-from .models import Category, Semester, User, Method
+from .models import Category, File, Semester, User, Method
 from .forms import MethodForm
 
 # Create your views here.
@@ -34,15 +38,16 @@ def finden(request):
 
 def method_single(request, method_id):
     m = Method.objects.get(pk=method_id)
+    f = m.method_files.all()
     return render(request, "praxismethoden/single_methodenansicht.html", {
-        "method": m
+        "method": m,
+        "files": f
     })
 
 
 def method_single_edit(request, method_id):
 
     m = Method.objects.get(pk=method_id)
-
 
     if request.method == "POST":
 
@@ -58,14 +63,53 @@ def method_single_edit(request, method_id):
             })
 
     else:
-
         f = MethodForm(instance=m)
+        queryset = File.objects.filter(method__id = method_id)
+        ff = modelformset_factory(
+            File, fields="__all__", can_delete=True,
+            widgets={
+                'id': None
+            }
+        )
+        ff_filtered = ff(queryset=queryset)
 
         return render(request, "praxismethoden/single_edit_methodenansicht.html", {
             "id": method_id,
-            "form": f
+            "form": f,
+            "file_form": ff_filtered
         })
 
+def method_single_edit_file(request, method_id):
+
+    if request.method == "POST":
+
+        files_formset = modelformset_factory(File, fields="__all__")
+
+        formset = files_formset(request.POST, request.FILES)
+        
+        if formset.is_valid():
+            
+            instances = formset.save(commit=False)
+
+            for obj in formset.deleted_objects:
+                obj.delete()
+
+            m = Method.objects.get(pk=method_id)
+            
+            for i in instances:
+                i.save()
+                i.method.add(m)
+                i.save()
+
+            return HttpResponseRedirect(reverse("method_single_edit", kwargs={'method_id': method_id}))
+
+    return HttpResponseRedirect(reverse("method_single_edit", kwargs={'method_id': method_id}))
+
+def edit_page(request):
+    m = Method.objects.all()
+    return render(request, "praxismethoden/edit_page.html", {
+        "all_methods": m
+    })
 
 
 def email_check(user):

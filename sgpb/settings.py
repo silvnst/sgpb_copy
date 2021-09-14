@@ -40,7 +40,6 @@ ALLOWED_HOSTS = [
 
 INSTALLED_APPS = [
     'ckeditor',
-    
     'praxismethoden',
     'django.contrib.admin',
     'django.contrib.auth',

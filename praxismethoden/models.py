@@ -2,6 +2,7 @@ from cloudinary_storage.storage import RawMediaCloudinaryStorage
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from ckeditor.fields import RichTextField
+from django.db.models.deletion import CASCADE
 
 class User(AbstractUser):
     pass
@@ -27,37 +28,41 @@ class Method(models.Model):
     titel = models.CharField(max_length=255)
     desc = RichTextField(null=True, blank=True, verbose_name="Text kurz", help_text="Der hier eingegebene Kurztext, wird in der Kachelansicht angezeigt und dient zur Information und dazu, den Besucher neugierig zu machen.")
     content = RichTextField(null=True, blank=True, verbose_name="Text detail", help_text="Der Text hier ist detailierter als der Kurztext. Zum Beispiel hält dieser zusätzliche Informationen oder Beispiele.")
-    file = models.FileField(blank=True, null=True)
-    file_raw = models.FileField(upload_to='raw/', blank=True, storage=RawMediaCloudinaryStorage(), verbose_name="Dokument")
     timestamp = models.DateTimeField(auto_now_add=True)
     category = models.ManyToManyField("Category", related_name="categories_method", blank=True)
 
-
     def serialize(self):
         
+        files = Method.objects.get(pk=self.id).method_files.all()
+
         return {
             "id": self.id,
             "likes": [user.id for user in self.likes.all()],
             "titel": self.titel,
             "desc": self.desc,
-            "file": {
-                "name": self.file.name,
-                "url": self.file.url
-            } if self.file else { },
-            "file_raw": {
-                "name": self.file_raw.name,
-                "url": self.file_raw.url
-            } if self.file_raw else { },
             "content": self.content,
             "timestamp": self.timestamp.strftime("%b %d %Y, %I:%M %p"),
             "category": {
                 "id": [cat.id for cat in self.category.all()],
                 "name": [cat.name for cat in self.category.all()],
-            } if self.category else { }
+            } if self.category else { },
+            "files": {
+                "name": [f.file_name for f in files],
+                "url": [f.file.url for f in files],
+            } if files else { },
         }
 
     def __str__(self):
         return f'{self.id}: {self.titel}, zuletzt geändert: {self.timestamp}'    
+
+class File(models.Model):
+    method = models.ManyToManyField("Method", related_name="method_files", blank=True)
+    file_name = models.CharField(max_length=255)
+    file = models.FileField(upload_to='raw/', storage=RawMediaCloudinaryStorage(), verbose_name="Dokument")
+
+    def __str__(self):
+        return f'{self.id}: {self.file_name}'
+
 
 PRIO_CHOICES = (
     (1,'Hoch'),
@@ -68,7 +73,6 @@ PRIO_CHOICES = (
 class Aufgaben(models.Model):
     text = models.TextField(max_length=2048)
     prio = models.PositiveSmallIntegerField(choices=PRIO_CHOICES, default=2)
-
 
 class Semester(models.Model):    
     plan = RichTextField(null=True, blank=True, verbose_name="Semesterprogram", help_text="Das Semesterprogramm.")
