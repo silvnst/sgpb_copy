@@ -42,6 +42,10 @@ document.addEventListener('DOMContentLoaded', () => {
                         docs += `<a <a target="_blank" class="text-decoration-none" href="${ file[1] }">${ file[0] }</a><br>`;
                     });
                 }
+                let tipp = '';
+                if (content.tipp) {
+                    tipp += '<h5><img src="static/img/lightbulb.png" alt="enlightened" title="enlightened" style="height: 23px; width: 23px;">Tipp:</h5>' + content.tipp;
+                }
                 pillsCat = '';
                 content.category.name.forEach(catName => {
                     pillsCat += `<span class="badge text-wrap rounded-pill bg-light shadow-sm text-dark mx-1" id="${catName.toLowerCase()}-modal">${catName}</span>`;
@@ -54,7 +58,9 @@ document.addEventListener('DOMContentLoaded', () => {
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            ${ content.content }
+                            <h5>Beschreibung:</h5>
+                            ${ content.desc }
+                            ${ tipp }
                             ${ docs }
                         </div>
                         <div class="modal-body">

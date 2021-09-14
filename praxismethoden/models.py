@@ -26,8 +26,8 @@ class Category(models.Model):
 class Method(models.Model):
     likes = models.ManyToManyField("User", related_name="methods_liked", blank=True)
     titel = models.CharField(max_length=255)
-    desc = RichTextField(null=True, blank=True, verbose_name="Text kurz", help_text="Der hier eingegebene Kurztext, wird in der Kachelansicht angezeigt und dient zur Information und dazu, den Besucher neugierig zu machen.")
-    content = RichTextField(null=True, blank=True, verbose_name="Text detail", help_text="Der Text hier ist detailierter als der Kurztext. Zum Beispiel hält dieser zusätzliche Informationen oder Beispiele.")
+    desc = RichTextField(null=True, blank=True, verbose_name="Beschreibung", help_text="Der hier eingegebene Text beschreibt die Methode.")
+    tipp = RichTextField(null=True, blank=True, verbose_name="Tipp", help_text="Hier noch ein Text, welcher als Tipp zur Methode angezeigt wird.")
     timestamp = models.DateTimeField(auto_now_add=True)
     category = models.ManyToManyField("Category", related_name="categories_method", blank=True)
 
@@ -40,7 +40,7 @@ class Method(models.Model):
             "likes": [user.id for user in self.likes.all()],
             "titel": self.titel,
             "desc": self.desc,
-            "content": self.content,
+            "tipp": self.tipp,
             "timestamp": self.timestamp.strftime("%b %d %Y, %I:%M %p"),
             "category": {
                 "id": [cat.id for cat in self.category.all()],
