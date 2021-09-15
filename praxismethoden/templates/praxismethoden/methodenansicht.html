@@ -33,7 +33,7 @@
             {% comment "Optional Single Page Mod" %}
                 <a class="stretched-link" href=" {% url 'method_single' card.id %}"></a>
             {% endcomment %}
-            <span class="material-icons like-display">
+            <span class="material-icons bg-white like-display">
                 {% if user in card.likes.all %} favorite
                 {% else %} favorite_border {% endif %}
             </span> 
