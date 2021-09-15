@@ -27,13 +27,13 @@ def alle(request):
         "cards": cards,
         "categories": categories,
         "titel": "Alle Methoden",
-        "untertitel": "Hier findest du alle Methoden der Praxisprojektbox."
+        "untertitel": "Hier findest du alle Methoden der Projektbox."
     })
 
 def finden(request):
     return render(request, "praxismethoden/finden.html", {
         "titel": "Alle Methoden",
-        "untertitel": "Hier findest du alle Methoden der Praxisprojektbox."
+        "untertitel": "Hier findest du alle Methoden der Projektbox."
     })
 
 def method_single(request, method_id):
