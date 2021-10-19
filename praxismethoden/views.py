@@ -179,6 +179,16 @@ def register(request):
     else:
         return render(request, "praxismethoden/register.html")
 
+
+def course_admin(request):
+    users = User.objects.all()
+
+    return render(request, "praxismethoden/course_admin.html", {
+        "users": users
+        })
+
+
+
 # api
 
 def api_method_single(request, method_id):
