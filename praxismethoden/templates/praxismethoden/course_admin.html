@@ -18,7 +18,8 @@
 
                 <div class="card-body">
 
-                    <div class="card-title">{{ user.id }}: {{ user.firstname }} {{ user.lastname }}</div>
+                    <5 class="card-title">{{ user.id }}: {{ user.first_name }} {{ user.last_name }}</5>
+                    <h6 class="card-subtitle mb-2 text-muted">{{ user.email }}</h6>
 
                     {% if user.methods_liked.all %}
                     
@@ -35,6 +36,10 @@
                             {% endfor %}
 
                         </ul>     
+                    
+                    {% else %}
+                        
+                        <p>Keine Methoden gefunden.</p>
                     
                     {% endif %}
                 </div>
