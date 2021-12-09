@@ -7,6 +7,7 @@ urlpatterns = [
     path("alle", views.alle, name="alle"), 
     path("finden", views.finden, name="finden"),
     path("meine", views.meine, name="meine"),
+    path("course", views.course, name="course"),
     path("methoden/<int:method_id>", views.method_single, name="method_single"),
     path("methoden/<int:method_id>/edit", views.method_single_edit, name="method_single_edit"),
     path("methoden/<int:method_id>/edit/file", views.method_single_edit_file, name="method_single_edit_file"),

@@ -49,57 +49,100 @@
         {{ request.user.id|json_script:"user_id" }}
     </head>
     <body>
-        <div class="container-fluid">
-            <div class="row h-100">
-                <!-- Sidebar -->
-                <div class="sidebar d-flex flex-column col-12 col-sm-3 col-lg-2 bg-light shadow sticky-top h-sm-100 py-2">
-                    <div class="d-flex flex-column col-12 align-items-center">
-                        <div class="d-none img-sidebar" style="background-image: url('static/img/HSG-Maskottchen.png');"></div>
-                        <h2 class="d-none d-sm-block my-3 col-12 py-sm-3 text-center">Menü</h2>
+        <nav class="navbar navbar-light navbar-expand-md sticky-top bg-light shadow">
+            <div class="container-lg">
+                <!-- Brand Logo & Name -->
+                <a href="{% url 'index' %}" class="text-decoration-none">
+                    <span class="navbar-brand mb-0 h1">
+                        <img class="img-fluid d-none d-sm-inline-block" style="height: 2rem;" src="{% static 'img/HSG-Maskottchen.png' %}" alt="">
+                        St. Galler Projektbox
+                    </span>
+                </a>
+                <!-- Hamburger -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarBox" aria-controls="navbarBox" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <!-- Off Canvas Menu, when mobile -->
+                <div class="offcanvas offcanvas-end offcanvas-override" tabindex="-1" id="navbarBox" aria-labelledby="navbarBoxLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="navbarBoxLabel">St. Galler Projektbox</h5>
+                        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                     </div>
-                <div class="d-flex flex-row flex-sm-column col justify-content-between">
-                    <nav class="nav nav-pills nav-fill-sgpb">
-                        <a class="nav-link text-center col-sm-12" href="{% url 'index' %}">
+                    <div class="offcanvas-body">
+                        <div class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                            <a class="nav-link" href="{% url 'index' %}">
+                                Home
+                            </a>
+                            <a class="nav-link" href="{% url 'alle' %}">
+                                Methoden
+                            </a>
+                            <a class="nav-link" href="{% url 'meine' %}">
+                                Favoriten
+                            </a>
+                            <div class="dropdown">
+                                <a class="nav-link col-sm-12 d-flex align-items-center dropdown-toggle" href="#" role="button" id="dropdownProfil" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <span class="material-icons material-icons-outlined">account_circle</span><div class="px-2">Profil</div>
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownProfil">
+                                    {% if user.is_authenticated %}
+                                        <li><a class="dropdown-item" href="#">{{ user.username }}</a></li>
+                                        <li><hr class="dropdown-divider"></li>
+                                        <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+                                    {% else %}
+                                        <li><a class="dropdown-item" href="{% url 'login' %}">Login</a></li>
+                                    {% endif %}
+                                    <li><a class="dropdown-item" href="{% url 'register' %}">Register</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Navbar when not mobile -->
+                <div class="collapse navbar-collapse flex-grow-0" id="navbarBox">
+                    <div class="navbar-nav">
+                        <a class="nav-link" href="{% url 'index' %}">
                             Home
                         </a>
-                        <a class="nav-link d-none text-center d-sm-block col-sm-12" href="{% url 'alle' %}">
+                        <a class="nav-link" href="{% url 'alle' %}">
                             Methoden
                         </a>
-                        <a class="nav-link d-block d-sm-none col-sm-12" href="{% url 'alle' %}">
-                            Methoden
-                        </a>
-                        <a class="nav-link d-none text-center d-sm-block col-sm-12" href="{% url 'meine' %}">
-                            Meine Favoriten
-                        </a>
-                        <a class="nav-link d-block d-sm-none col-sm-12" href="{% url 'meine' %}">
+                        <a class="nav-link" href="{% url 'meine' %}">
                             Favoriten
                         </a>
-                    </nav>
-                    <nav class="nav nav-pills nav-fill-sgpb">
-                        <a class="nav-link col-sm-12 d-flex align-items-center dropdown-toggle" href="#" role="button" id="dropdownProfil" data-bs-toggle="dropdown" aria-expanded="false">
-                            <span class="material-icons material-icons-outlined">account_circle</span><div class="d-none d-sm-inline-block px-2">Profil</div>
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownProfil">
-                            {% if user.is_authenticated %}
-                                <li><a class="dropdown-item" href="#">{{ user.username }}</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
-                            {% else %}
-                                <li><a class="dropdown-item" href="{% url 'login' %}">Login</a></li>
-                            {% endif %}
-                            <li><a class="dropdown-item" href="{% url 'register' %}">Register</a></li>
-                        </ul>
-                    </nav>
-                  </div> 
-                </div>
-                <!-- Main Content -->
-                <div class="col overflow-auto bg-light" style="min-height: 100%;">
-                    <div class="container-lg p-0 p-md-3">
-                        {% block body %}
-                        {% endblock %}
+                        <div class="dropdown">
+                            <a class="nav-link col-sm-12 d-flex align-items-center dropdown-toggle" href="#" role="button" id="dropdownProfil" data-bs-toggle="dropdown" aria-expanded="false">
+                                <span class="material-icons material-icons-outlined">account_circle</span><div class="px-2">Profil</div>
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownProfil">
+                                {% if user.is_authenticated %}
+                                    <li><a class="dropdown-item" href="#">{{ user.username }}</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+                                {% else %}
+                                    <li><a class="dropdown-item" href="{% url 'login' %}">Login</a></li>
+                                {% endif %}
+                                <li><a class="dropdown-item" href="{% url 'register' %}">Register</a></li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+
+        </nav>
+        
+        <!-- Main Content -->
+        <div class="bg-light" style="min-height: 100vh;">
+            <div class="position-relative bg-success text-white" style="left: 0; right: 0;">
+                <div class="container-lg">
+                    <p class="py-3 fs-6">
+                        Hinweis: Diese Website ist derzeit noch im Aufbau. Hast du Ideen, Fragen oder Anregungen, dann <a class="text-white" href="mailto:silvan.stoeckli@student.unisg.ch">schreib mir eine Mail</a>.
+                    </p>
+                </div>
+            </div>
+            <div class="container-lg">
+                {% block body %}
+                {% endblock %}
+            </div>
+        </div>       
     </body>
 </html>

@@ -1,7 +1,9 @@
 // helper function favoritisation
 function favBtnInner (ind, id) {
     text = ind ? 'Von Favoriten entfernen' : 'Zu Favoriten hinzufügen';
-    document.querySelector(`#${id}`).innerHTML = text
+    replacement = ind ? 'btn-danger' : 'btn-success';
+    document.querySelector(`#${id}`).innerHTML = text;
+    document.querySelector(`#${id}`).classList.replace('btn-primary', replacement);
 }
 // csrf protection
 function getCookie(name) {
@@ -39,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     let fileArray = content.files.name.map((k, i) => {return[k, content.files.url[i]]});
                     docs += '<br><h5>Weitere Unterlagen zu diesem Thema: </h5>';
                     fileArray.forEach(file => {
-                        docs += `<a <a target="_blank" class="text-decoration-none" href="${ file[1] }">${ file[0] }</a><br>`;
+                        docs += `<a target="_blank" class="text-decoration-none" href="${ file[1] }">${ file[0] }</a><br>`;
                     });
                 }
                 let tipp = '';
@@ -76,7 +78,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>`;
                 likeInd = content.likes.includes( user_id );
                 favBtnInner(likeInd, 'favBtnModal');
+
+                let methodModal = new bootstrap.Modal(mod);
+
+                // method liking
                 document.querySelector('#favBtnModal').addEventListener('click', ()=>{
+                    methodModal.toggle();
                     request = new Request(`/api/methoden/${c.id}`, {
                         headers: {'X-CSRFToken': csrftoken}
                     })
@@ -95,7 +102,6 @@ document.addEventListener('DOMContentLoaded', () => {
                         location.reload();
                     })
                 })
-                let methodModal = new bootstrap.Modal(mod);
                 methodModal.toggle();
             })
             .catch(error => {

@@ -1,0 +1,46 @@
+{% extends "praxismethoden/layout.html" %}
+{% load static %}
+
+{% block body %}
+
+<div class="row">
+  <div class="col-12 mt-3 my-sm-5 py-4 py-md-5">
+    <h1 class="display-4 fw-bold">Kurs Administration</h1>
+    <p class="lead my-3"> Untertitel </p>
+
+  This is the course.
+  <br>
+
+    <div class="accordion" id="coursesAccordion">
+
+      {% for m in course.modules.all %}
+
+      <div class="accordion-item">
+        <div class="accordion-header">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#modulesStayOpen{{ m.id}}" aria-expanded="true" aria-controls="modulesStayOpen{{ m.id}}">
+            {{ m.title }}
+            {{ m.summary }}
+          </button>
+        </div>
+        <div id="modulesStayOpen{{ m.id}}" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
+          <div class="accordion-body">
+            {% autoescape off %}
+              {{ m.desc }}
+            {% endautoescape %}
+            <p>Unterlagen:</p>
+            {% for file in m.files.all %}
+              <a target="_blank" class="text-decoration-none" href="{{ file.file.url }}">{{ file.file_name }}</a><br>
+            {% endfor %}
+          </div>
+        </div>
+
+      </div>
+      {% endfor %}
+
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}
+

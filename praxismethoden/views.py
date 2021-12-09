@@ -9,15 +9,31 @@ from django.forms.models import modelformset_factory
 from django.shortcuts import render
 from django.http import HttpResponseRedirect, JsonResponse, HttpResponse
 from django.urls import reverse
-from .models import Category, File, Semester, User, Method
+from django.urls.base import reverse_lazy
+from .models import Category, File, User, Method, Course
 from .forms import MethodForm
+from django.views.generic.list import ListView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
-# Create your views here.
+# Course View and Admin
+
+def course(request):
+    course = request.user.students.last()
+
+    return render(request, "praxismethoden/course.html", {
+        "course": course
+    })
+
+def course_admin(request):
+    users = User.objects.all()
+
+    return render(request, "praxismethoden/course_admin.html", {
+        "users": users
+        })
 
 def index(request):
-    semesterprogram = Semester.objects.first()
     return render(request, "praxismethoden/index.html", {
-        "programm": semesterprogram,
+        
     })
 
 def alle(request):
@@ -121,7 +137,7 @@ def meine(request):
     return render(request, "praxismethoden/methodenansicht.html", {
         "cards": cards,
         "titel": "Favoriten",
-        "untertitel": "Hier findest du deine liebsten Methoden."
+        "untertitel": "Hier findest du deine favoritisierten Methoden."
     })
 
 # account
@@ -162,7 +178,7 @@ def register(request):
         confirmation = request.POST["confirmation"]
         if password != confirmation:
             return render(request, "praxismethoden/register.html", {
-                "message": "Passwords must match."
+                "message": "Passwörter müssen übereinstimmen."
             })
 
         # Attempt to create new user
@@ -172,21 +188,12 @@ def register(request):
         except IntegrityError as e:
             print(e)
             return render(request, "praxismethoden/register.html", {
-                "message": "Email address already taken."
+                "message": "Diese E-Mail ist schon vergeben."
             })
         login(request, user)
         return HttpResponseRedirect(reverse("index"))
     else:
         return render(request, "praxismethoden/register.html")
-
-
-def course_admin(request):
-    users = User.objects.all()
-
-    return render(request, "praxismethoden/course_admin.html", {
-        "users": users
-        })
-
 
 
 # api

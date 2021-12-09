@@ -11,30 +11,90 @@
     {% endif %}
 
     <div class="col-12">
-        <div class="row">
-            <div class="col-12 text-center">
-                <div class="col-12">
-                    <img class="img-fluid" style="height: 150px;" src="{% static 'img/HSG-Maskottchen.png' %}" alt="">
-                </div>
-                <h1 class="pt-1 display-2">St. Galler Projektbox</h1>
-                <hr class="m-4">
+        <div class="row row align-items-center">
+            <div class="col-lg-6 py-3">
+                <h1 class="display-5 fw-bold">
+                    Praxisprobleme strukturiert lösen.
+                </h1>
+                <p class="lead">
+                    Die St. Galler Projektbox ist eine Methodik, die Studierende dabei unterstützt, im Team reale Probleme von Unternehmen zu lösen.
+                </p>
                 
             </div>
-            <div class="col-12">
-                <p class="lead">Die St. Galler Projektbox ist eine Methodik, die Studierende dabei unterstützt, im Team reale Probleme von Unternehmen zu lösen.</p>
-                <div class="alert alert-primary" role="alert">
-                    Hinweis: Diese Website ist derzeit noch im Aufbau. Hast du Ideen, Fragen oder Anregungen, dann <a href="mailto:silvan.stoeckli@student.unisg.ch">schreib mir eine Mail</a>. 
-                </div>
-                <h3>Anleitung</h3>
-                <p>Auf dieser Seite findest du alle Methoden der St. Galler Projektbox. </p>
-                <p>Wenn du <a href="{% url 'login' %}">eingeloggt</a> bist, hast du zudem die Möglichkeit, diejenigen Methoden, welche dir am wichtigsten erscheinen als Favoriten zu markieren.</p>
-                <p>Dazu musst du nur auf die Methode klicken und dann auf den "Zu Favoriten hinzufügen" Button klicken.
-                    Sobald do eine Methode als Favorit hinzugefügt hast, erkennst du deine Favoriten in der <a href="{% url 'alle' %}">Methodenübersicht</a>,
-                    an dem ausgefüllten Herz oben rechts.
-                </p>
+            <div class="col-lg-6 py-3">
+                <img class="img-fluid d-none " src="{% static 'img/haupt.jpg' %}" alt="">
+                <img class="img-fluid" src="{% static 'img/HSG-Maskottchen.png' %}" alt="">
             </div>
         </div>
-        
+        <div class="row gy-3 mb-3">
+            <div class="col-lg-6">
+                <h3>Lerne neue Methoden kennen</h3>
+                <p>In der Methodenübersicht findest du verschiedenste, nach mit Kategorien geordnete Methoden, die dir in deinem Praxisprojekt helfen können.</p>
+                <a class="btn btn-primary" role="button" aria-disabled="true" href="{% url 'alle' %}">Zu den Methoden</a>
+            </div>
+            <div class="col-lg-6">
+                <h3>Wichigste Methoden speichern</h3>
+                <p>Wenn du registriert bist, kannst du relevante Methoden favorisieren und findest sie so beim nächsten Besuch kinderleicht.</p>
+                <a class="btn btn-primary" role="button" aria-disabled="true" href="{% url 'meine' %}">Zu den Favoriten</a>
+            </div>
+            <div class="col-12 d-none">
+                <h4>Anleitung</h4>
+                <p>Auf dieser Webseite kannst du:
+                    <ol>
+                        <li>Methoden durchsuchen</li>
+                    </ol>
+                </p>
+                <p>Willkommen zur St.Galler Projektbox!</p>
+                <p>Jedes Praxisprojekt benötigt einen guten Plan, um es
+                    erfolgreich bewältigen zu können. Die
+                    St.Galler Projektbox unterstützt
+                    euch bei der systematischen Lösungsfindung für euer Praxisproblem in
+                    dem sie euch</p>
+                <ul>
+                    <li>Methoden und Werkzeuge,</li>
+                    <li>digitale Tools</li>
+                    <li>und weitere Hilfsmittel</li>
+                </ul>
+                <p>in einer Box bereitstellt</p>
+                <p>
+                    Die zentralen Elemente der Box sind zum einen die Projekt
+                    Timeline,
+                    welche euch auf Wochenbasis mit Hilfe Karten zu den Meilensteintreffen
+                    und Prüfungsleistungen durch das Semester führt. Somit wisst ihr zu
+                    jedem Zeitpunkt, welche Termine anstehen und welche Aufgaben auf
+                    euch warten. Zum anderen findet ihr in der Digitalen Arbeitsmappe
+                    Methoden, Werkzeuge und Tools, die euch dabei helfen, das
+                    Praxisproblem zu lösen.
+                    Die Erklärungen zu den einzelnen Elementen der
+                    St.Galler Projektbox
+                    findet ihr auf den nachfolgenden Seiten.
+                </p>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="card d-none">
+                    <div class="card-header">
+                        Für Studierende
+                    </div>
+                    <div class="card-body">
+                        <h4 class="fw-bold">
+                            Neu?
+                        </h4>
+                        <a class="btn btn-light">
+                            Anleitung
+                        </a>
+                        <h4 class="fw-bold">
+                            Schon dabei?
+                        </h4>
+                        <a class="btn btn-primary">
+                            Login
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 

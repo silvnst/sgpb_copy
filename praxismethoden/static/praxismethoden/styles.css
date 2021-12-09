@@ -33,3 +33,9 @@
 .transition {
     transition: all 0.5s;
 }
+.offcanvas-override {
+    width: 200px;
+}
+nav.navbar .nav-link {
+    font-weight: bold;
+}

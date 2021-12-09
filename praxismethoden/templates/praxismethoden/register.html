@@ -2,32 +2,36 @@
 
 {% block body %}
 
-    <h2 class="my-3">Register</h2>
+    <h2 class="my-3">Registrierung</h2>
 
     {% if message %}
-        <div>{{ message }}</div>
+        <div class="alert alert-warning" role="alert">
+            {{ message }}
+        </div>
     {% endif %}
 
     <form action="{% url 'register' %}" method="post">
         {% csrf_token %}
         <div class="mb-3">
-            <input class="form-control" type="text" name="firstname" placeholder="First Name">
+            <input required class="form-control" type="text" name="firstname" placeholder="Vorname">
         </div>
         <div class="mb-3">
-            <input class="form-control" type="text" name="lastname" placeholder="Last Name">
+            <input required class="form-control" type="text" name="lastname" placeholder="Nachname">
         </div>
         <div class="mb-3">
-            <input class="form-control" type="email" name="email" placeholder="Email Address">
+            <input required class="form-control" type="email" name="email" placeholder="E-Mail">
         </div>
         <div class="mb-3">
-            <input class="form-control" type="password" name="password" placeholder="Password">
+            <input required class="form-control" type="password" name="password" placeholder="Passwort">
         </div>
         <div class="mb-3">
-            <input class="form-control" type="password" name="confirmation" placeholder="Confirm Password">
+            <input required class="form-control" type="password" name="confirmation" placeholder="Passwort bestätigen">
         </div>
         <input class="btn btn-primary" type="submit" value="Register">
     </form>
 
-    Already have an account? <a href="{% url 'login' %}">Log In here.</a>
+    <div class="mt-3">
+        Du hast schon einen Account? <a href="{% url 'login' %}">Hier einloggen.</a>
+    </div>
 
 {% endblock %}

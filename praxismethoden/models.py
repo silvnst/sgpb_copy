@@ -2,6 +2,7 @@ from cloudinary_storage.storage import RawMediaCloudinaryStorage
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from ckeditor.fields import RichTextField
+from django.db.models.base import Model
 from django.db.models.deletion import CASCADE
 
 class User(AbstractUser):
@@ -30,11 +31,11 @@ class Method(models.Model):
     tipp = RichTextField(null=True, blank=True, verbose_name="Tipp", help_text="Hier noch ein Text, welcher als Tipp zur Methode angezeigt wird.")
     timestamp = models.DateTimeField(auto_now_add=True)
     category = models.ManyToManyField("Category", related_name="categories_method", blank=True)
+    files = models.ManyToManyField('File', related_name="method_files", blank=True)
+
 
     def serialize(self):
         
-        files = Method.objects.get(pk=self.id).method_files.all()
-
         return {
             "id": self.id,
             "likes": [user.id for user in self.likes.all()],
@@ -47,36 +48,63 @@ class Method(models.Model):
                 "name": [cat.name for cat in self.category.all()],
             } if self.category else { },
             "files": {
-                "name": [f.file_name for f in files],
-                "url": [f.file.url for f in files],
-            } if files else { },
+                "name": [f.file_name for f in self.files.all()],
+                "url": [f.file.url for f in self.files.all()],
+            } if self.files else { },
         }
 
     def __str__(self):
         return f'{self.id}: {self.titel}, zuletzt geändert: {self.timestamp}'    
 
 class File(models.Model):
-    method = models.ManyToManyField("Method", related_name="method_files", blank=True)
+    # method = models.ManyToManyField("Method", related_name="method_files", blank=True)
     file_name = models.CharField(max_length=255)
     file = models.FileField(upload_to='raw/', storage=RawMediaCloudinaryStorage(), verbose_name="Dokument")
 
     def __str__(self):
         return f'{self.id}: {self.file_name}'
 
+class Course(models.Model):
+    owner = models.ForeignKey(
+        User,
+        related_name='courses_created',
+        on_delete=models.CASCADE)
+    title = models.CharField(max_length=255)
+    slug = models.SlugField(max_length=255, unique=True)  
+    overview = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)
+    students = models.ManyToManyField(User, related_name="students", blank=True)
+
+    class Meta:
+        ordering = ['-created']
+    
+    def __str__(self):
+        return self.title
+
+MODULE_KINDS = (
+    (1, 'Meilenstein'),
+    (2, 'Prüfungsleistung')
+)
+
+class Module(models.Model):
+    course = models.ForeignKey(
+        Course,
+        related_name='modules',
+        on_delete=CASCADE
+    )
+    module_kind = models.PositiveSmallIntegerField(choices=MODULE_KINDS, default=1, verbose_name="Art des Elements")
+    title = models.CharField(max_length=255)
+    summary = models.TextField(max_length=510)
+    desc = RichTextField(null=True, blank=True, verbose_name="Zusammenfassung", help_text="Der hier eingegebene Text beschreibt die kurz das wichtigste zum Meilenstein.")
+    tipp = RichTextField(null=True, blank=True, verbose_name="Tipp", help_text="Hier noch ein Text, welcher als Tipp zur Methode angezeigt wird.")
+    files = models.ManyToManyField('File', related_name="module_files", blank=True)
+
+
+    def __str__(self):
+        return self.title
 
 PRIO_CHOICES = (
     (1,'Hoch'),
     (2, 'Mittel'),
     (3,'Tief'),
 )
-
-class Aufgaben(models.Model):
-    text = models.TextField(max_length=2048)
-    prio = models.PositiveSmallIntegerField(choices=PRIO_CHOICES, default=2)
-
-class Semester(models.Model):    
-    plan = RichTextField(null=True, blank=True, verbose_name="Semesterprogram", help_text="Das Semesterprogramm.")
-    author = models.ForeignKey("User", blank=True, null=True, on_delete=models.SET_NULL, related_name="author")
-    
-    def __str__(self):
-        return f'Semesterprogram von {self.author}'
