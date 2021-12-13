@@ -37,7 +37,8 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(content => {
                 let mod = document.querySelector('#methodModal');
                 let docs = '';
-                if (content.files.name) {
+                console.log(content);
+                if (content.files.name.length !== 0) {
                     let fileArray = content.files.name.map((k, i) => {return[k, content.files.url[i]]});
                     docs += '<br><h5>Weitere Unterlagen zu diesem Thema: </h5>';
                     fileArray.forEach(file => {
