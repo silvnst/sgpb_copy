@@ -1,0 +1,18 @@
+/* Alert dismission */
+@keyframes alert_dismiss {
+    0% {
+        opacity: 1;
+        max-height: 4rem;
+    }
+    75% {
+        opacity: 0;
+    }
+    100% {
+        max-height: 0px;
+        opacity: 0;
+    }
+}
+.alert-animation {
+    animation: alert_dismiss 1s forwards;
+    animation-play-state: paused;
+}
