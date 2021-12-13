@@ -3,8 +3,6 @@
 .btn {
     box-shadow: none!important;
 }
-
-
 .h-sm-100 {
     height: fit-content;
 }
@@ -40,8 +38,20 @@
 .transition {
     transition: all 0.5s;
 }
+.cat-overflow {
+    white-space: nowrap;
+    overflow-x: scroll;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+.cat-overflow::-webkit-scrollbar {
+    display: none;
+}
+
+
+
 .offcanvas-override {
-    width: 200px;
+    width: 250px;
 }
 nav.navbar .nav-link {
     font-weight: bold;
