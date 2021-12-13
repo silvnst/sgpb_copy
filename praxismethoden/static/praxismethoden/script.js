@@ -1,18 +1,13 @@
 document.addEventListener('DOMContentLoaded', () => {
     
+    // Header alert
+    
+    //// Check if cookie
     if ( !document.cookie.split(';').some((item) => item.includes('noInfo=true')) ) {
         document.querySelector('#header-alert').classList.remove('d-none');
     }
-
-    // Highlight active section
-    document.querySelectorAll('nav.navbar a').forEach( e => {
-        if (e.href === location.href) {
-            e.classList.add('active');
-            e.ariaCurrent = 'page';
-        }
-    })
-
-    // Header alert
+    
+    //// button and cookie setting
     document.querySelectorAll('#header-alert').forEach( alertEl => {
         alertEl.querySelector('button.btn-close').addEventListener('click', () => {
             alertEl.addEventListener('animationend', () => {
@@ -22,5 +17,15 @@ document.addEventListener('DOMContentLoaded', () => {
             document.cookie = 'noInfo=true; max-age=60*60; Secure';
         })
     }) 
+
+    // Highlight active section
+    document.querySelectorAll('nav.navbar div.navbar-nav > a.nav-link').forEach( e => {
+        if (e.href === location.href) {
+            e.classList.add('active');
+            e.ariaCurrent = 'page';
+        }
+    })
+
+    
 })
 
