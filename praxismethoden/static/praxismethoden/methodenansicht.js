@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.log(content);
                 if (content.files.name.length !== 0) {
                     let fileArray = content.files.name.map((k, i) => {return[k, content.files.url[i]]});
-                    docs += '<br><h5>Weitere Unterlagen zu diesem Thema: </h5>';
+                    docs += '<br><h5>Dateien zu diesem Thema: </h5>';
                     fileArray.forEach(file => {
                         docs += `<a target="_blank" class="text-decoration-none" href="${ file[1] }">${ file[0] }</a><br>`;
                     });
