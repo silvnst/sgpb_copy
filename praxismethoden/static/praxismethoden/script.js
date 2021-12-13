@@ -17,9 +17,9 @@ document.addEventListener('DOMContentLoaded', () => {
         alertEl.querySelector('button.btn-close').addEventListener('click', () => {
             alertEl.addEventListener('animationend', () => {
                 alertEl.remove();
-                document.cookie = 'noInfo=true; max-age=60*60; Secure';
             })
             alertEl.style.animationPlayState = 'running';
+            document.cookie = 'noInfo=true; max-age=60*60; Secure';
         })
     }) 
 })
