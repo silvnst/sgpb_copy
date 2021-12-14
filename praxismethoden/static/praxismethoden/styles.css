@@ -1,4 +1,5 @@
-/* ugly bootstrap focus effects */
+
+/* delete ugly bootstrap focus effects */
 .btn-close,
 .btn {
     box-shadow: none!important;

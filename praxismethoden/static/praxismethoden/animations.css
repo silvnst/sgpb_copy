@@ -2,7 +2,7 @@
 @keyframes alert_dismiss {
     0% {
         opacity: 1;
-        max-height: 4rem;
+        max-height: fit-content;
     }
     75% {
         opacity: 0;
