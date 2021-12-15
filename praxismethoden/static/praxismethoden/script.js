@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Header alert
     
     //// Check if cookie
-    if ( !document.cookie.split(';').some((item) => item.includes('noInfo=true')) ) {
+    if ( !document.cookie.split(';').some( (item) => item.includes('noInfo=true') ) ) {
         document.querySelector('#header-alert').classList.remove('d-none');
     }
     
@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 alertEl.remove();
             })
             alertEl.style.animationPlayState = 'running';
-            document.cookie = 'noInfo=true; max-age=60*60; Secure';
+            document.cookie = 'noInfo=true; Max-Age=10*5; Secure';
         })
     }) 
 
