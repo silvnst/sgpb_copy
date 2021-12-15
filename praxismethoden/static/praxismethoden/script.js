@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 alertEl.remove();
             })
             alertEl.style.animationPlayState = 'running';
-            document.cookie = 'noInfo=true; Max-Age=300; Secure';
+            // document.cookie = 'noInfo=true; Max-Age=300; Secure'; // doesnt work
         })
     }) 
 
