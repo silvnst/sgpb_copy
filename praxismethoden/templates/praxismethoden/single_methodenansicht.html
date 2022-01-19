@@ -35,10 +35,10 @@
         {% endautoescape %}
     </div>
     {% endif %}
-    {% if files %}
+    {% if method.files %}
     <div class="col-12 py-3">
         <h5>Weitere Unterlagen zu diesem Thema: </h5>
-        {% for f in files %}
+        {% for f in method.files.all %}
             <a target="_blank" class="text-decoration-none" href=" {{ f.file.url }} ">{{ f.file_name }}</a><br>
         {% endfor %}
     </div>

@@ -34,30 +34,44 @@
         {% endfor %}
         <button type="submit" class="btn btn-primary">Änderungen speichern</button>
     </form>
-    <div class="col-12">
+    <div class="col-12 pt-5">
         <h2>Dateien</h2>
     </div>
-    <form class="d-flex flex-wrap" action="{% url 'method_single_edit_file' id %}" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {% for form in file_form %}
-        {{ file_form.management_form }}
-            {% for field in form %}
-                <div class="d-flex w-100">
-                    {{ field.errors }}
-                    <div class="col form-label">
-                        {{ field.label_tag }}
+    <div class="col-12 col-lg-8">
+        <form class="accordion" id="filesAccordion" action="{% url 'method_single_edit_file' id %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ file_form.management_form }}
+            {% for form in file_form %}
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="file-{{ form.id.value }}">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ form.id.value }}" aria-expanded="false" aria-controls="collapse{{ form.id.value }}">
+                            {{ form.file_name.value|default:"Neue Datei" }}
+                        </button>
+                    </h2>
+                    <div id="collapse{{ form.id.value }}" class="accordion-collapse collapse" aria-labelledby="file-{{ form.id.value }}" data-bs-parent="#filesAccordion">
+                        <div class="accordion-body">
+                            {% for field in form %}
+                            <div class="d-flex w-100">
+                                {{ field.errors }}
+                                <div class="col form-label">
+                                    {{ field.label_tag }}
+                                </div>
+                                <div class="col">
+                                    {{ field }}
+                                </div>
+                                {% if field.help_text %}
+                                    <div class="form-text">{{ field.help_text|safe }}</div>
+                                {% endif %}
+                            </div>
+                            {% endfor %}
+                        </div>
                     </div>
-                    <div class="col">
-                        {{ field }}
-                    </div>
-                    {% if field.help_text %}
-                        <div class="form-text">{{ field.help_text|safe }}</div>
-                    {% endif %}
                 </div>
             {% endfor %}
-        {% endfor %}
-        <button type="submit" class="btn btn-primary">Änderungen speichern</button>
-    </form>
+            <button type="submit" class="btn btn-primary mt-3">Änderungen speichern</button>
+        </form>
+    </div>
+    
 </div>
 
 

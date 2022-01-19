@@ -1,17 +1,17 @@
 import json
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib.auth.decorators import login_required, permission_required, user_passes_test
 from django.core.checks.messages import Error
 from django.db import IntegrityError
 from django.forms import fields, formset_factory
 from django.forms.formsets import formset_factory
 from django.forms.models import modelformset_factory
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.http import HttpResponseRedirect, JsonResponse, HttpResponse
 from django.urls import reverse
 from django.urls.base import reverse_lazy
-from .models import Category, File, User, Method, Course
-from .forms import MethodForm
+from .models import Category, File, User, Method
+from .forms import MethodForm, FileForm
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
@@ -54,52 +54,57 @@ def finden(request):
 
 def method_single(request, method_id):
     m = Method.objects.get(pk=method_id)
-    f = m.method_files.all()
+    # f = m.method_files.all()
     return render(request, "praxismethoden/single_methodenansicht.html", {
-        "method": m,
-        "files": f
+        "method": m
     })
 
-
+        
+@login_required(login_url='login')
 def method_single_edit(request, method_id):
 
-    m = Method.objects.get(pk=method_id)
+    if request.user.is_staff:
 
-    if request.method == "POST":
+        m = Method.objects.get(pk=method_id)
 
-        f = MethodForm(request.POST, instance=m)
+        if request.method == "POST":
 
-        if f.is_valid():
+            f = MethodForm(request.POST, instance=m)
 
-            f.save()
+            if f.is_valid():
 
+                f.save()
+
+                return render(request, "praxismethoden/single_edit_methodenansicht.html", {
+                    "id": method_id,
+                    "form": f
+                })
+
+        else:
+
+            f = MethodForm(instance=m)
+
+            files_formset = modelformset_factory(
+                File, fields="__all__", can_delete=True,
+                widgets={
+                    'id': None
+                }
+            )
+            
             return render(request, "praxismethoden/single_edit_methodenansicht.html", {
                 "id": method_id,
-                "form": f
+                "form": f,
+                "file_form": files_formset
             })
-
     else:
-        f = MethodForm(instance=m)
-        queryset = File.objects.filter(method__id = method_id)
-        ff = modelformset_factory(
-            File, fields="__all__", can_delete=True,
-            widgets={
-                'id': None
-            }
-        )
-        ff_filtered = ff(queryset=queryset)
-
-        return render(request, "praxismethoden/single_edit_methodenansicht.html", {
-            "id": method_id,
-            "form": f,
-            "file_form": ff_filtered
-        })
+        return HttpResponseRedirect(reverse("method_single", kwargs={'method_id': method_id}))
+        
 
 def method_single_edit_file(request, method_id):
-
+    
     if request.method == "POST":
 
-        files_formset = modelformset_factory(File, fields="__all__")
+        files_formset = modelformset_factory(File, fields="__all__", can_delete=True)
 
         formset = files_formset(request.POST, request.FILES)
         
@@ -110,23 +115,12 @@ def method_single_edit_file(request, method_id):
             for obj in formset.deleted_objects:
                 obj.delete()
 
-            m = Method.objects.get(pk=method_id)
-            
             for i in instances:
-                i.save()
-                i.method.add(m)
                 i.save()
 
             return HttpResponseRedirect(reverse("method_single_edit", kwargs={'method_id': method_id}))
-
-    return HttpResponseRedirect(reverse("method_single_edit", kwargs={'method_id': method_id}))
-
-def edit_page(request):
-    m = Method.objects.all()
-    return render(request, "praxismethoden/edit_page.html", {
-        "all_methods": m
-    })
-
+    else:
+        return HttpResponseRedirect(reverse("method_single_edit", kwargs={'method_id': method_id}))
 
 def email_check(user):
     return user.email.endswith('unisg.ch')

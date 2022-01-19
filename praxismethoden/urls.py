@@ -12,7 +12,6 @@ urlpatterns = [
     path("methoden/<int:method_id>/edit", views.method_single_edit, name="method_single_edit"),
     path("methoden/<int:method_id>/edit/file", views.method_single_edit_file, name="method_single_edit_file"),
     path("courseadmin", views.course_admin, name="course_admin"),
-    path("edit", views.edit_page, name="edit_page"),
     path("login", views.login_view, name="login"),
     path("logout", views.logout_view, name="logout"),
     path("register", views.register, name="register"),

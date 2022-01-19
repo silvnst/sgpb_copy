@@ -153,7 +153,8 @@ CKEDITOR_CONFIGS = {
             ['Link', 'Image', 'Iframe', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'PageBreak'],
             '/',
             ['Styles', 'Format', 'Font', 'FontSize', '-', 'TextColor', 'BGColor', 'ShowBlocks']
-        ]
+        ],
+        'width': 'auto',
     },
 }
 

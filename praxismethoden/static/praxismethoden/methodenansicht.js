@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
 
                 // tooltip
-                let extra = (user_id === null ? 'data-bs-toggle="tooltip" data-bs-placement="top" title="Bitte logge dich ein, um favoritisieren zu können."':'');
+                let loginTooltip = (user_id === null ? 'data-bs-toggle="tooltip" data-bs-placement="top" title="Bitte logge dich ein, um favoritisieren zu können."':'');
                 
                 // build modal
                 mod.innerHTML =
@@ -81,7 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                         <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Schliessen</button>
-                        <span class="d-inline-block" ${ extra } tabindex="0">
+                        <span class="d-inline-block" ${ loginTooltip } tabindex="0">
                             <button type="button" class="btn btn-primary" id="favBtnModal" ></button>
                         </span>
                         </div>
