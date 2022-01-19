@@ -24,36 +24,36 @@
     <div class="col-12 mt-3">
         <h3>Nutzer und Methoden</h3>
     </div>
-    <div class="col-12">
-        {% for user in users %}
     
-            <div class="col-12 col-md-6 col-lg-5 mb-3">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ user.id }}: {{ user.first_name }} {{ user.last_name }}</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">{{ user.email }}</h6>
-                        
-                        {% if user.methods_liked.all %}
-                            <ul class="list-group">
-                                {% for m in user.methods_liked.all %}  
-                                <li class="list-group-item">
+    {% for user in users %}
 
-                                    {{ m.id }}: {{ m.titel }}
-                                    
-                                </li>
-                                {% endfor %}
-                            </ul>     
-                        
-                        {% else %}
-                            <p>Keine Methoden gefunden.</p>                        
-                        {% endif %}
+    <div class="col-12 col-md-6 col-lg-5 mb-3">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">{{ user.id }}: {{ user.first_name }} {{ user.last_name }}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">{{ user.email }}</h6>
+                
+                {% if user.methods_liked.all %}
+                    <ul class="list-group">
+                        {% for m in user.methods_liked.all %}  
+                        <li class="list-group-item">
 
-                    </div>
-                </div>
+                            {{ m.id }}: {{ m.titel }}
+                            
+                        </li>
+                        {% endfor %}
+                    </ul>     
+                
+                {% else %}
+                    <p>Keine Methoden gefunden.</p>                        
+                {% endif %}
+
             </div>
-
-        {% endfor %}
+        </div>
     </div>
+
+    {% endfor %}
+    
 </div>
 
 
