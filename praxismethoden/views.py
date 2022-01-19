@@ -11,9 +11,7 @@ from django.http import HttpResponseRedirect, JsonResponse, HttpResponse
 from django.urls import reverse
 from django.urls.base import reverse_lazy
 from .models import Category, File, User, Method
-from .forms import MethodForm, FileForm
-from django.views.generic.list import ListView
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from .forms import MethodForm
 from django.contrib.admin.views.decorators import staff_member_required
 
 # Course View and Admin
@@ -62,6 +60,7 @@ def method_single(request, method_id):
 
 @staff_member_required()
 def staff_view(request):
+
     m = Method.objects.all()
     u = User.objects.filter(is_staff=False)
     return render(request, "praxismethoden/staff/overview.html", {

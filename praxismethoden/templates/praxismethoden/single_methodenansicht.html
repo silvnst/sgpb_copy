@@ -50,9 +50,11 @@
             </span>
         {% endfor %}
     </div>
-    <div class="col-12 py-5">
-        <a class="btn btn btn-outline-primary" href="{% url 'method_single_edit' method.id %}" role="button">Bearbeiten</a>
-    </div>
+    {% if user.is_staff %}
+        <div class="col-12 py-5">
+            <a class="btn btn btn-outline-primary" href="{% url 'method_single_edit' method.id %}" role="button">Bearbeiten</a>
+        </div>
+    {% endif %}
 </div>
 
 
