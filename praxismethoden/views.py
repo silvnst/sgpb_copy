@@ -64,6 +64,7 @@ def staff_view(request):
     m = Method.objects.all()
     u = User.objects.filter(is_staff=False)
     return render(request, "praxismethoden/staff/overview.html", {
+        "titel": "Betreuenden Ansicht",
         "all_methods": m,
         "users": u
     })
