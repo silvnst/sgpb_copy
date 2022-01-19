@@ -14,6 +14,7 @@ from .models import Category, File, User, Method
 from .forms import MethodForm, FileForm
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.contrib.admin.views.decorators import staff_member_required
 
 # Course View and Admin
 
@@ -59,6 +60,14 @@ def method_single(request, method_id):
         "method": m
     })
 
+@staff_member_required()
+def staff_view(request):
+    m = Method.objects.all()
+    u = User.objects.filter(is_staff=False)
+    return render(request, "praxismethoden/staff/overview.html", {
+        "all_methods": m,
+        "users": u
+    })
         
 @login_required(login_url='login')
 def method_single_edit(request, method_id):
@@ -75,7 +84,7 @@ def method_single_edit(request, method_id):
 
                 f.save()
 
-                return render(request, "praxismethoden/single_edit_methodenansicht.html", {
+                return render(request, "praxismethoden/staff/single_edit_methodenansicht.html", {
                     "id": method_id,
                     "form": f
                 })
@@ -91,7 +100,7 @@ def method_single_edit(request, method_id):
                 }
             )
             
-            return render(request, "praxismethoden/single_edit_methodenansicht.html", {
+            return render(request, "praxismethoden/staff/single_edit_methodenansicht.html", {
                 "id": method_id,
                 "form": f,
                 "file_form": files_formset
