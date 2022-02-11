@@ -59,10 +59,11 @@
     display: none;
 }
 
-
+/* Sidebar */
 
 .offcanvas-override {
-    width: 250px;
+    width: unset;
+    min-width: 250px;
 }
 nav.navbar .nav-link {
     font-weight: bold;

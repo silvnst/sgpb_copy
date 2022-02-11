@@ -71,68 +71,19 @@
                     </div>
                     <div class="offcanvas-body">
                         <div class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                            <a class="nav-link" href="{% url 'index' %}">
-                                Home
-                            </a>
-                            <a class="nav-link" href="{% url 'alle' %}">
-                                Methoden
-                            </a>
-                            <a class="nav-link" href="{% url 'meine' %}">
-                                Favoriten
-                            </a>
-                            <div class="dropdown">
-                                <a class="nav-link col-sm-12 d-flex align-items-center dropdown-toggle" href="#" role="button" id="dropdownProfil" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <span class="material-icons material-icons-outlined">account_circle</span><div class="px-2">Profil</div>
-                                </a>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownProfil">
-                                    {% if user.is_authenticated %}
-                                        <li><a class="dropdown-item fw-bold" href="#">{% if user.first_name %}{{ user.first_name }}{% else %}{{ user.username }}{% endif %}</a></li>
-                                        <li><hr class="dropdown-divider"></li>
-                                        {% if user.is_staff %}
-                                            <li><a class="dropdown-item" href="{% url 'staff' %}">Staff Bereich</a></li>
-                                            <li><hr class="dropdown-divider"></li>
-                                        {% endif%}
-                                        <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
-                                    {% else %}
-                                        <li><a class="dropdown-item" href="{% url 'login' %}">Login</a></li>
-                                    {% endif %}
-                                    <li><a class="dropdown-item" href="{% url 'register' %}">Registrieren</a></li>
-                                </ul>
-                            </div>
+                            
+                            {% include "./helpers/nav_links.html" %}
+                            
+
                         </div>
                     </div>
                 </div>
                 <!-- Navbar when not mobile -->
                 <div class="collapse navbar-collapse flex-grow-0" id="navbarBox">
                     <div class="navbar-nav">
-                        <a class="nav-link" href="{% url 'index' %}">
-                            Home
-                        </a>
-                        <a class="nav-link" href="{% url 'alle' %}">
-                            Methoden
-                        </a>
-                        <a class="nav-link" href="{% url 'meine' %}">
-                            Favoriten
-                        </a>
-                        <div class="dropdown">
-                            <a class="nav-link col-sm-12 d-flex align-items-center dropdown-toggle" href="#" role="button" id="dropdownProfil" data-bs-toggle="dropdown" aria-expanded="false">
-                                <span class="material-icons material-icons-outlined">account_circle</span><div class="px-2">Profil</div>
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownProfil">
-                                {% if user.is_authenticated %}
-                                    <li><a class="dropdown-item">{% if user.first_name %}{{ user.first_name }}{% else %}{{ user.username }}{% endif %}</a></li>
-                                    <li><hr class="dropdown-divider"></li>
-                                    {% if user.is_staff %}
-                                            <li><a class="dropdown-item" href="{% url 'staff' %}">Staff Bereich</a></li>
-                                            <li><hr class="dropdown-divider"></li>
-                                    {% endif%}
-                                    <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
-                                {% else %}
-                                    <li><a class="dropdown-item" href="{% url 'login' %}">Login</a></li>
-                                {% endif %}
-                                <li><a class="dropdown-item" href="{% url 'register' %}">Registrieren</a></li>
-                            </ul>
-                        </div>
+
+                        {% include "./helpers/nav_links.html" %}
+
                     </div>
                 </div>
             </div>

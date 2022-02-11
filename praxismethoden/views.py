@@ -35,6 +35,9 @@ def index(request):
         
     })
 
+def timeline(request):
+    return render(request, "praxismethoden/timeline.html")
+
 def alle(request):
     cards = Method.objects.all()
     categories = Category.objects.all()
