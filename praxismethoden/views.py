@@ -45,7 +45,7 @@ def alle(request):
         "cards": cards,
         "categories": categories,
         "titel": "Alle Methoden",
-        "untertitel": "Hier findest du alle Methoden der Projektbox."
+        "untertitel": "Hier findest du die aktuellen Methoden der Projektbox. Mit deinem Feedback werden sie laufend aktualisiert."
     })
 
 def finden(request):
