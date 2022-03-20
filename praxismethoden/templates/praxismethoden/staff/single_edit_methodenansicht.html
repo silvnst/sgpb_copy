@@ -50,13 +50,13 @@
                     </h2>
                     <div id="collapse{{ form.id.value }}" class="accordion-collapse collapse" aria-labelledby="file-{{ form.id.value }}" data-bs-parent="#filesAccordion">
                         <div class="accordion-body">
-                            {% for field in form %}
-                            <div class="d-flex w-100">
+                            {% for field in form.visible_fields %}
+                            <div class="d-flex flex-wrap w-100">
                                 {{ field.errors }}
-                                <div class="col form-label">
+                                <div class="col-12 col-md-3 form-label">
                                     {{ field.label_tag }}
                                 </div>
-                                <div class="col">
+                                <div class="col text-break">
                                     {{ field }}
                                 </div>
                                 {% if field.help_text %}

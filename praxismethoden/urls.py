@@ -6,7 +6,6 @@ urlpatterns = [
     path("", views.index, name="index"),
     path("timeline", views.timeline, name="timeline"), 
     path("alle", views.alle, name="alle"), 
-    path("finden", views.finden, name="finden"),
     path("meine", views.meine, name="meine"),
     path("course", views.course, name="course"),
     path("methoden/<int:method_id>", views.method_single, name="method_single"),

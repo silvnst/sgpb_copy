@@ -1,6 +1,10 @@
 {% extends "praxismethoden/layout.html" %}
 {% load static %}
 
+{% if seiten_titel %}
+    {% block title %} {{ seiten_titel }} {% endblock %}
+{% endif %}
+
 {% block script %}
     <script src="{% static 'praxismethoden/categoryfilter.js' %}"></script>
     <script src="{% static 'praxismethoden/methodenansicht.js' %}"></script>

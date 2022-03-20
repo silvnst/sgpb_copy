@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required, permission_required, user_passes_test
 from django.core.checks.messages import Error
 from django.db import IntegrityError
-from django.forms import fields, formset_factory
+from django.forms import HiddenInput, fields, formset_factory
 from django.forms.formsets import formset_factory
 from django.forms.models import modelformset_factory
 from django.shortcuts import redirect, render
@@ -42,16 +42,11 @@ def alle(request):
     cards = Method.objects.all()
     categories = Category.objects.all()
     return render(request, "praxismethoden/methodenansicht.html", {
+        "seiten_titel": "Methoden",
         "cards": cards,
         "categories": categories,
         "titel": "Alle Methoden",
         "untertitel": "Hier findest du die aktuellen Methoden der Projektbox. Mit deinem Feedback werden sie laufend aktualisiert."
-    })
-
-def finden(request):
-    return render(request, "praxismethoden/finden.html", {
-        "titel": "Alle Methoden",
-        "untertitel": "Hier findest du alle Methoden der Projektbox."
     })
 
 def method_single(request, method_id):
@@ -99,7 +94,7 @@ def method_single_edit(request, method_id):
             files_formset = modelformset_factory(
                 File, fields="__all__", can_delete=True,
                 widgets={
-                    'id': None
+                    'id': HiddenInput()
                 }
             )
             
@@ -141,6 +136,7 @@ def email_check(user):
 def meine(request):
     cards = Method.objects.filter(likes=request.user)
     return render(request, "praxismethoden/methodenansicht.html", {
+        "seiten_titel": "Favoriten",
         "cards": cards,
         "titel": "Favoriten",
         "untertitel": "Hier findest du deine favoritisierten Methoden."
