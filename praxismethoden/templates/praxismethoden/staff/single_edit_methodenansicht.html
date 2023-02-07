@@ -2,9 +2,9 @@
 {% load static %}
 
 {% block script %}
-    <script src="{% static 'praxismethoden/script.js' %}"></script>
-    <script src="{% static 'praxismethoden/categoryfilter.js' %}"></script>
-    <script src="{% static 'praxismethoden/methodenansicht.js' %}"></script>
+
+    <link rel="stylesheet" href="{% static 'praxismethoden/deletion.js' %}">
+
     <script>
         $(document).ready(function() {
             $('#id_files').select2({
@@ -47,6 +47,7 @@
             </div>
         {% endfor %}
         <button type="submit" class="btn btn-primary">Änderungen speichern</button>
+        <a id="method_delete" href="{% url 'method_delete' id %}" class="ml-3 btn btn-danger">Methode Löschen</a>
     </form>
     <div class="col-12 pt-5">
         <h2>Dateien</h2>

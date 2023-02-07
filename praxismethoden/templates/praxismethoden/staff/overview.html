@@ -10,6 +10,13 @@
     <div class="col-md-6 px-0">
         <h1 class="display-4 fw-bold">{{ titel }} </h1>
         <p class="lead my-3"> {{ untertitel }} </p>
+        {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-warning" role="alert">
+                {{ message }}
+            </div>
+            {% endfor %}
+        {% endif %}
     </div>
 </div>
 <div class="row">

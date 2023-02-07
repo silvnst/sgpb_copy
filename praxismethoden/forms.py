@@ -1,5 +1,3 @@
-from django.contrib.auth import models
-from django.forms import fields
 from .models import Method, File
 from django import forms
 

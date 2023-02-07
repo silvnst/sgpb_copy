@@ -27,15 +27,20 @@
             </div>
         </div>
         <div class="row gy-3 mb-3">
-            <div class="col-md-6">
+            <div class="col-md-6 col-lg-4">
+                <h3>Projekt Timeline</h3>
+                <p>In der Methodenübersicht findest du verschiedenste, nach mit Kategorien geordnete Methoden, die dir in deinem Praxisprojekt helfen können.</p>
+                <a class="btn btn-outline-primary" role="button" aria-disabled="true" href="{% url 'timeline' %}">Zur Timeline</a>
+            </div>
+            <div class="col-md-6 col-lg-4">
                 <h3>Lerne neue Methoden kennen</h3>
                 <p>In der Methodenübersicht findest du verschiedenste, nach mit Kategorien geordnete Methoden, die dir in deinem Praxisprojekt helfen können.</p>
-                <a class="btn btn-primary" role="button" aria-disabled="true" href="{% url 'alle' %}">Zu den Methoden</a>
+                <a class="btn btn-outline-primary mb-3" role="button" aria-disabled="true" href="{% url 'alle' %}">Zu den Methoden</a>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6 col-lg-4">
                 <h3>Wichigste Methoden speichern</h3>
                 <p>Wenn du registriert und eingeloggt bist, kannst du relevante Methoden favorisieren und findest sie so bei deinem nächsten Besuch kinderleicht.</p>
-                <a class="btn btn-primary" role="button" aria-disabled="true" href="{% url 'meine' %}">Zu den Favoriten</a>
+                <a class="btn btn-outline-primary" role="button" aria-disabled="true" href="{% url 'meine' %}">Zu den Favoriten</a>
             </div>
         </div>
     </div>
