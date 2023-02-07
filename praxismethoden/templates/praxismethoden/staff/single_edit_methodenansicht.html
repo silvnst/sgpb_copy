@@ -5,7 +5,16 @@
     <script src="{% static 'praxismethoden/script.js' %}"></script>
     <script src="{% static 'praxismethoden/categoryfilter.js' %}"></script>
     <script src="{% static 'praxismethoden/methodenansicht.js' %}"></script>
-
+    <script>
+        $(document).ready(function() {
+            $('#id_files').select2({
+                width: '100%'
+            });
+            $('#id_category').select2({
+                width: '100%'
+            });
+        });
+    </script>
 {% endblock %}
 
 {% block body %}
@@ -13,21 +22,18 @@
     <div class="col-12 mt-3">
         <a class="btn btn-outline-secondary mb-3" href="{% url 'staff' %}" role="button">Zurück</a>
         <h1 class="display-6 fw-bold">Edit: {{ method.titel }} </h1>        
-    </div>
-    
-    
+    </div>      
+
     <form action="{% url 'method_single_edit' id %}" method="post">
         {% csrf_token %}
         {{ form.media }}
         {% for field in form %}
-            <div class="mb-3">
+            <div class="mb-3 col-12 col-lg-8">
                 {{ field.errors }}
-                <div class="col-12 form-label">
+                <div class="form-label">
                     {{ field.label_tag }}
                 </div>
-                <div class="col-12">
-                    {{ field }}
-                </div>
+                {{ field }}
                 {% if field.help_text %}
                     <div class="form-text">{{ field.help_text|safe }}</div>
                 {% endif %}
@@ -74,6 +80,4 @@
     </div>
     
 </div>
-
-
 {% endblock %}

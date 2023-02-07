@@ -23,12 +23,7 @@ def course(request):
         "course": course
     })
 
-def course_admin(request):
-    users = User.objects.all()
-
-    return render(request, "praxismethoden/course_admin.html", {
-        "users": users
-        })
+# Hauptseiten
 
 def index(request):
     return render(request, "praxismethoden/index.html", {
@@ -49,12 +44,24 @@ def alle(request):
         "untertitel": "Hier findest du die aktuellen Methoden der Projektbox. Mit deinem Feedback werden sie laufend aktualisiert."
     })
 
+@login_required(login_url='login')
+def meine(request):
+    cards = Method.objects.filter(likes=request.user)
+    return render(request, "praxismethoden/methodenansicht.html", {
+        "seiten_titel": "Favoriten",
+        "cards": cards,
+        "titel": "Favoriten",
+        "untertitel": "Hier findest du deine favoritisierten Methoden."
+    })
+
 def method_single(request, method_id):
     m = Method.objects.get(pk=method_id)
     # f = m.method_files.all()
     return render(request, "praxismethoden/single_methodenansicht.html", {
         "method": m
     })
+
+# Staff Member Views
 
 @staff_member_required()
 def staff_view(request):
@@ -71,35 +78,25 @@ def staff_view(request):
 def method_single_edit(request, method_id):
 
     if request.user.is_staff:
-
         m = Method.objects.get(pk=method_id)
-
         f = MethodForm(instance=m)
-
         files_formset = modelformset_factory(
             File, fields="__all__", can_delete=True,
             widgets={
                 'id': HiddenInput()
             }
         )
-
         if request.method == "POST":
-
             f = MethodForm(request.POST, instance=m)
-
             if f.is_valid():
-
                 f.save()
-
                 return render(request, "praxismethoden/staff/single_edit_methodenansicht.html", {
                     "id": method_id,
                     "form": f,
                     "file_form": files_formset,
                     "method": m
                 })
-
         else:
-            
             return render(request, "praxismethoden/staff/single_edit_methodenansicht.html", {
                 "id": method_id,
                 "form": f,
@@ -107,45 +104,27 @@ def method_single_edit(request, method_id):
                 "method": m
             })
     else:
-        return HttpResponseRedirect(reverse("method_single", kwargs={'method_id': method_id}))
-        
+        return HttpResponseRedirect(reverse("method_single", kwargs={'method_id': method_id})) 
 
 def method_single_edit_file(request, method_id):
     
     if request.method == "POST":
-
         files_formset = modelformset_factory(File, fields="__all__", can_delete=True)
-
         formset = files_formset(request.POST, request.FILES)
-        
         if formset.is_valid():
-            
             instances = formset.save(commit=False)
-
             for obj in formset.deleted_objects:
                 obj.delete()
-
             for i in instances:
                 i.save()
-
             return HttpResponseRedirect(reverse("method_single_edit", kwargs={'method_id': method_id}))
     else:
         return HttpResponseRedirect(reverse("method_single_edit", kwargs={'method_id': method_id}))
 
+# account
+
 def email_check(user):
     return user.email.endswith('unisg.ch')
-
-@login_required(login_url='login')
-def meine(request):
-    cards = Method.objects.filter(likes=request.user)
-    return render(request, "praxismethoden/methodenansicht.html", {
-        "seiten_titel": "Favoriten",
-        "cards": cards,
-        "titel": "Favoriten",
-        "untertitel": "Hier findest du deine favoritisierten Methoden."
-    })
-
-# account
 
 def login_view(request):
     if request.method == "POST":

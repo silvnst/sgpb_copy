@@ -13,7 +13,7 @@ urlpatterns = [
     path("logout", views.logout_view, name="logout"),
     path("register", views.register, name="register"),
 
-    #staff only
+    # staff only
     path("staff", views.staff_view, name="staff"),
     path("methoden/<int:method_id>/edit", views.method_single_edit, name="method_single_edit"),
     path("methoden/<int:method_id>/edit/file", views.method_single_edit_file, name="method_single_edit_file"),
