@@ -11,7 +11,7 @@ from django.http import HttpResponseRedirect, JsonResponse, HttpResponse
 from django.urls import reverse
 from django.urls.base import reverse_lazy
 from .models import Category, File, User, Method
-from .forms import MethodForm
+from .forms import MethodForm, FileForm
 from django.contrib.admin.views.decorators import staff_member_required
 
 # Course View and Admin
@@ -81,10 +81,8 @@ def method_single_edit(request, method_id):
         m = Method.objects.get(pk=method_id)
         f = MethodForm(instance=m)
         files_formset = modelformset_factory(
-            File, fields="__all__", can_delete=True,
-            widgets={
-                'id': HiddenInput()
-            }
+            File, form = FileForm, can_delete = True,
+            
         )
         if request.method == "POST":
             f = MethodForm(request.POST, instance=m)
@@ -107,7 +105,6 @@ def method_single_edit(request, method_id):
         return HttpResponseRedirect(reverse("method_single", kwargs={'method_id': method_id})) 
 
 def method_single_edit_file(request, method_id):
-    
     if request.method == "POST":
         files_formset = modelformset_factory(File, fields="__all__", can_delete=True)
         formset = files_formset(request.POST, request.FILES)
@@ -118,8 +115,34 @@ def method_single_edit_file(request, method_id):
             for i in instances:
                 i.save()
             return HttpResponseRedirect(reverse("method_single_edit", kwargs={'method_id': method_id}))
+        else:
+            print(formset.errors)
+            return HttpResponseRedirect(reverse("method_single_edit", kwargs={'method_id': method_id}))
     else:
         return HttpResponseRedirect(reverse("method_single_edit", kwargs={'method_id': method_id}))
+
+def new_method(request):
+
+    f = MethodForm()
+
+    if request.method == "POST":
+        f = MethodForm(request.POST)
+        if f.is_valid():
+            f.save()
+            return HttpResponseRedirect(reverse("staff"))
+
+        else:
+            return render(request, "praxismethoden/staff/new_method.html", {
+                "form": f,
+            })
+        
+    else:
+        return render(request, "praxismethoden/staff/new_method.html", {
+                "form": f,
+            })
+
+
+
 
 # account
 

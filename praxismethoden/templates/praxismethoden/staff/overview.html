@@ -20,6 +20,7 @@
                 <li>{{ m.titel }} - <a href="{% url 'method_single_edit' m.id %}">Bearbeiten</a></li>
             {% endfor %}
         </ul>
+        <a href="{% url 'new_method' %}" class="btn btn-primary">Neue Methode</a>
     </div>
     <div class="col-12 mt-3">
         <h3>Nutzer und Methoden</h3>

@@ -23,7 +23,14 @@
         <a class="btn btn-outline-secondary mb-3" href="{% url 'staff' %}" role="button">Zurück</a>
         <h1 class="display-6 fw-bold">Edit: {{ method.titel }} </h1>        
     </div>      
-
+    <div class="alert-warning">
+        {% for message in messages %}
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    </div>
     <form action="{% url 'method_single_edit' id %}" method="post">
         {% csrf_token %}
         {{ form.media }}
@@ -57,6 +64,9 @@
                     </h2>
                     <div id="collapse{{ form.id.value }}" class="accordion-collapse collapse" aria-labelledby="file-{{ form.id.value }}" data-bs-parent="#filesAccordion">
                         <div class="accordion-body">
+                            {% for hidden in form.hidden_fields %}
+                                {{ hidden }}
+                            {% endfor %}
                             {% for field in form.visible_fields %}
                             <div class="d-flex flex-wrap w-100">
                                 {{ field.errors }}

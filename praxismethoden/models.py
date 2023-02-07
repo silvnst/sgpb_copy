@@ -57,7 +57,6 @@ class Method(models.Model):
         return f'{self.id}: {self.titel}, zuletzt geändert: {self.timestamp}'    
 
 class File(models.Model):
-    # method = models.ManyToManyField("Method", related_name="method_files", blank=True)
     file_name = models.CharField(max_length=255)
     file = models.FileField(upload_to='raw/', storage=RawMediaCloudinaryStorage(), verbose_name="Dokument")
 
