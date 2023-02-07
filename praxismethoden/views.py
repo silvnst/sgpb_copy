@@ -74,6 +74,15 @@ def method_single_edit(request, method_id):
 
         m = Method.objects.get(pk=method_id)
 
+        f = MethodForm(instance=m)
+
+        files_formset = modelformset_factory(
+            File, fields="__all__", can_delete=True,
+            widgets={
+                'id': HiddenInput()
+            }
+        )
+
         if request.method == "POST":
 
             f = MethodForm(request.POST, instance=m)
@@ -84,24 +93,18 @@ def method_single_edit(request, method_id):
 
                 return render(request, "praxismethoden/staff/single_edit_methodenansicht.html", {
                     "id": method_id,
-                    "form": f
+                    "form": f,
+                    "file_form": files_formset,
+                    "method": m
                 })
 
         else:
-
-            f = MethodForm(instance=m)
-
-            files_formset = modelformset_factory(
-                File, fields="__all__", can_delete=True,
-                widgets={
-                    'id': HiddenInput()
-                }
-            )
             
             return render(request, "praxismethoden/staff/single_edit_methodenansicht.html", {
                 "id": method_id,
                 "form": f,
-                "file_form": files_formset
+                "file_form": files_formset,
+                "method": m
             })
     else:
         return HttpResponseRedirect(reverse("method_single", kwargs={'method_id': method_id}))
